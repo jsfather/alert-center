@@ -1,103 +1,168 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import Image from 'next/image';
+import HorizontalLinearEqualizer from '@/app/components/HorizontalLinearEqualizer';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { useState, useEffect } from 'react';
+import VerticalLinearEqualizer from '@/app/components/VerticalLinearEqualizer';
+import SparklineDots from '@/app/components/SparklineDots';
+
+export default function Page() {
+  const [progress, setProgress] = useState({
+    progress1: 0,
+    progress2: 10,
+    progress3: 0,
+    progress4: 66,
+  });
+
+  useEffect(() => {
+    const values = {
+      progress1: [0, 75, 100, 0],
+      progress2: [10, 55, 90, 10],
+      progress3: [0, 80, 25, 0],
+      progress4: [66, 50, 7, 66],
+    };
+    let currentIndex = 0;
+
+    const interval = setInterval(() => {
+      setProgress((prev) => ({
+        ...prev,
+        progress1: values.progress1[currentIndex],
+        progress2: values.progress2[currentIndex],
+        progress3: values.progress3[currentIndex],
+        progress4: values.progress4[currentIndex],
+      }));
+      currentIndex = (currentIndex + 1) % values.progress1.length;
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="bg-dotted grid h-full min-h-screen grid-cols-3 p-4">
+      <div>
+        <div className="flex h-fit flex-row items-center gap-4">
+          <Image
+            src="/login/glob.png"
+            width={137}
+            height={137}
+            alt="Picture of the author"
+          />
+          <HorizontalLinearEqualizer
+            className="h-[200px] w-full"
+            lineCount={13}
+            lineHeight={1}
+            gap={5}
+            color="#e6e6e6"
+            containerHeight={100}
+            transitionDuration={4000}
+            speed={4000}
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex h-fit flex-row items-center gap-4">
+          <div>
+            <CircularProgressbar
+              value={progress.progress2}
+              text={`${Math.round(progress.progress2)}`}
+              styles={{
+                root: {
+                  margin: 'auto 16px',
+                  width: '150px',
+                  height: '150px',
+                },
+                path: {
+                  stroke: '#808080',
+                  strokeWidth: '4px',
+                },
+                trail: {
+                  stroke: '#191919',
+                  strokeWidth: '4px',
+                },
+                text: {
+                  fill: '#808080',
+                  fontSize: '25px',
+                },
+              }}
+            />
+            <CircularProgressbar
+              value={progress.progress2}
+              text={`${Math.round(progress.progress2)}`}
+              styles={{
+                root: {
+                  margin: 'auto 16px',
+                  width: '150px',
+                  height: '150px',
+                },
+                path: {
+                  stroke: '#808080',
+                  strokeWidth: '4px',
+                },
+                trail: {
+                  stroke: '#191919',
+                  strokeWidth: '4px',
+                },
+                text: {
+                  fill: '#808080',
+                  fontSize: '25px',
+                },
+              }}
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <VerticalLinearEqualizer
+              lineCount={52}
+              lineWidth={5}
+              containerHeight={70}
+              colors={[
+                { color: '#119892', chance: 1 },
+                { color: '#7d7d7d', chance: 1 },
+                { color: '#031f1e', chance: 1 },
+                { color: '#a6a6a6', chance: 1 },
+              ]}
+            />
+            <SparklineDots
+              rows={3}
+              columns={20}
+              colors={[
+                { color: '#000000', chance: 5 },
+                { color: '#4f4f4f', chance: 2 },
+                { color: '#ebebeb', chance: 1 },
+              ]}
+            />{' '}
+            <SparklineDots
+              rows={3}
+              columns={20}
+              colors={[
+                { color: '#000000', chance: 5 },
+                { color: '#4f4f4f', chance: 2 },
+                { color: '#ebebeb', chance: 1 },
+              ]}
+            />{' '}
+            <SparklineDots
+              rows={3}
+              columns={35}
+              colors={[
+                { color: '#000000', chance: 5 },
+                { color: '#4f4f4f', chance: 2 },
+                { color: '#ebebeb', chance: 1 },
+              ]}
+            />{' '}
+            <SparklineDots
+              rows={3}
+              columns={35}
+              colors={[
+                { color: '#000000', chance: 5 },
+                { color: '#4f4f4f', chance: 2 },
+                { color: '#ebebeb', chance: 1 },
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+      {/*<div className="bg-blue-100 p-4"></div>;*/}
+      {/*<div className="bg-green-100 p-4"></div>;*/}
     </div>
   );
 }
