@@ -2,7 +2,7 @@ import SparklineDots from '@/app/components/SparklineDots';
 
 export default function Page() {
   return (
-    <div className="p-4">
+    <div className="h-full bg-dotted p-4">
       <SparklineDots
         squareSize={10}
         rows={3}

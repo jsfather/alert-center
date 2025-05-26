@@ -4,6 +4,13 @@
     --background-color: #000000;
 }
 
+@layer utilities  {
+    .bg-dotted {
+        background-image: radial-gradient(#0b0b0b 4px, transparent 0);
+        background-size: 25px 25px;
+    }
+}
+
 html {
     background-color: var(--background-color);
 }
