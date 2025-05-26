@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 
-interface LineEqualizerProps {
+interface HorizontalLinearEqualizerProps {
   lineCount?: number;
   lineHeight?: number;
   gap?: number;
@@ -16,7 +16,7 @@ interface LineEqualizerProps {
   maxWidth?: number;
 }
 
-export default function LinearEqualizer({
+export default function HorizontalLinearEqualizer({
   lineCount = 15,
   lineHeight = 2,
   gap = 2,
@@ -27,7 +27,7 @@ export default function LinearEqualizer({
   containerHeight = 100,
   minWidth = 20,
   maxWidth = 100,
-}: LineEqualizerProps) {
+}: HorizontalLinearEqualizerProps) {
   const [lineWidths, setLineWidths] = useState<number[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const animationFrames = useRef<number[]>([]);
