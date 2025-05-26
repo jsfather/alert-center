@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface Color {
   color: string;
@@ -46,6 +46,19 @@ export default function SparklineSquares({
 }: SparklineSquaresProps) {
   const [squareColors, setSquareColors] = useState<number[][]>([]);
 
+  const updateSquareColor = useCallback((rowIndex: number, colIndex: number) => {
+    setSquareColors((prev) => {
+      const newGrid = [...prev];
+      newGrid[rowIndex] = [...newGrid[rowIndex]];
+      newGrid[rowIndex][colIndex] = getRandomColor(colors);
+      return newGrid;
+    });
+    
+    setTimeout(() => {
+      updateSquareColor(rowIndex, colIndex);
+    }, Math.random() * (speed / 2) + speed / 2);
+  }, [colors, speed]);
+
   useEffect(() => {
     const newGrid = Array(rows)
       .fill(null)
@@ -57,19 +70,6 @@ export default function SparklineSquares({
     setSquareColors(newGrid);
   }, [rows, columns, colors]);
 
-  const updateSquareColor = (rowIndex: number, colIndex: number) => {
-    setSquareColors((prev) => {
-      const newGrid = [...prev];
-      newGrid[rowIndex] = [...newGrid[rowIndex]];
-      newGrid[rowIndex][colIndex] = getRandomColor(colors);
-      return newGrid;
-    });
-    
-    setTimeout(() => {
-      updateSquareColor(rowIndex, colIndex);
-    }, Math.random() * (speed / 2) + speed / 2);
-  };
-
   useEffect(() => {
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {
@@ -78,7 +78,7 @@ export default function SparklineSquares({
         }, Math.random() * speed);
       }
     }
-  }, [rows, columns, colors, speed]);
+  }, [rows, columns, speed, updateSquareColor]);
 
   return (
     <div
