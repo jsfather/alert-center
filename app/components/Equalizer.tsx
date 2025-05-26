@@ -34,7 +34,7 @@ const DEFAULT_COLORS: Color[] = [
 const getRandomColor = (colors: Color[]) => {
   const totalChances = colors.reduce((sum, item) => sum + item.chance, 0);
   let random = Math.random() * totalChances;
-  
+
   for (let i = 0; i < colors.length; i++) {
     random -= colors[i].chance;
     if (random <= 0) {
@@ -70,68 +70,97 @@ export default function Equalizer({
   const resizeObserver = useRef<ResizeObserver | null>(null);
 
   const generateSegmentCount = useCallback(() => {
-    return Math.floor(Math.random() * (maxSegments - minSegments + 1)) + minSegments;
+    return (
+      Math.floor(Math.random() * (maxSegments - minSegments + 1)) + minSegments
+    );
   }, [maxSegments, minSegments]);
 
-  const generateInitialState = useCallback((count: number) => {
-    return Array(count).fill(null).map(() => ({
-      activeSegments: generateSegmentCount(),
-      colors: Array(maxSegments).fill(0).map(() => getRandomColor(colors))
-    }));
-  }, [colors, generateSegmentCount, maxSegments]);
+  const generateInitialState = useCallback(
+    (count: number) => {
+      return Array(count)
+        .fill(null)
+        .map(() => ({
+          activeSegments: generateSegmentCount(),
+          colors: Array(maxSegments)
+            .fill(0)
+            .map(() => getRandomColor(colors)),
+        }));
+    },
+    [colors, generateSegmentCount, maxSegments]
+  );
 
-  const updateBar = useCallback((index: number) => {
-    setBars(currentBars => {
-      if (index >= currentBars.length) return currentBars;
-      
-      const newBars = [...currentBars];
-      const currentActive = currentBars[index].activeSegments;
-      const targetActive = generateSegmentCount();
-      
-      const maxChange = 2;
-      const limitedChange = Math.min(
-        Math.max(targetActive, currentActive - maxChange),
-        currentActive + maxChange
+  const updateBar = useCallback(
+    (index: number) => {
+      setBars((currentBars) => {
+        if (index >= currentBars.length) return currentBars;
+
+        const newBars = [...currentBars];
+        const currentActive = currentBars[index].activeSegments;
+        const targetActive = generateSegmentCount();
+
+        const maxChange = 2;
+        const limitedChange = Math.min(
+          Math.max(targetActive, currentActive - maxChange),
+          currentActive + maxChange
+        );
+
+        newBars[index] = {
+          activeSegments: limitedChange,
+          colors: Array(maxSegments)
+            .fill(0)
+            .map(() => getRandomColor(colors)),
+        };
+
+        return newBars;
+      });
+
+      animationFrames.current[index] = window.setTimeout(
+        () => {
+          updateBar(index);
+        },
+        transitionDuration + Math.random() * speed
       );
-
-      newBars[index] = {
-        activeSegments: limitedChange,
-        colors: Array(maxSegments).fill(0).map(() => getRandomColor(colors))
-      };
-      
-      return newBars;
-    });
-
-    animationFrames.current[index] = window.setTimeout(() => {
-      updateBar(index);
-    }, transitionDuration + Math.random() * speed);
-  }, [colors, generateSegmentCount, maxSegments, speed, transitionDuration]);
+    },
+    [colors, generateSegmentCount, maxSegments, speed, transitionDuration]
+  );
 
   const updateBarCount = useCallback(() => {
     if (!containerRef.current || !autoFit) return;
-    
+
     const containerWidth = containerRef.current.offsetWidth;
-    const totalGapSpace = gap * (Math.floor(containerWidth / (segmentWidth + gap)));
+    const totalGapSpace =
+      gap * Math.floor(containerWidth / (segmentWidth + gap));
     const availableWidth = containerWidth - totalGapSpace;
     const newBarCount = Math.floor(availableWidth / segmentWidth);
-    
+
     if (newBarCount !== barCount) {
       setBarCount(newBarCount);
       setBars(generateInitialState(newBarCount));
-      
+
       // Clear existing animations
-      animationFrames.current.forEach(timeout => {
+      animationFrames.current.forEach((timeout) => {
         if (timeout) clearTimeout(timeout);
       });
-      
+
       // Restart animations for new bars
       for (let i = 0; i < newBarCount; i++) {
-        animationFrames.current[i] = window.setTimeout(() => {
-          updateBar(i);
-        }, i * 50 + Math.random() * speed);
+        animationFrames.current[i] = window.setTimeout(
+          () => {
+            updateBar(i);
+          },
+          i * 50 + Math.random() * speed
+        );
       }
     }
-  }, [autoFit, barCount, gap, generateInitialState, segmentWidth, speed, updateBar]);
+  }, [
+    autoFit,
+    barCount,
+    gap,
+    generateInitialState,
+    segmentWidth,
+    speed,
+    updateBar,
+  ]);
 
   useEffect(() => {
     if (autoFit && containerRef.current) {
@@ -152,37 +181,43 @@ export default function Equalizer({
 
     const initTimeout = setTimeout(() => {
       setIsInitialized(true);
-      
+
       for (let i = 0; i < barCount; i++) {
-        animationFrames.current[i] = window.setTimeout(() => {
-          updateBar(i);
-        }, i * 50 + Math.random() * speed);
+        animationFrames.current[i] = window.setTimeout(
+          () => {
+            updateBar(i);
+          },
+          i * 50 + Math.random() * speed
+        );
       }
     }, 100);
 
     return () => {
-      animationFrames.current.forEach(timeout => {
+      animationFrames.current.forEach((timeout) => {
         if (timeout) clearTimeout(timeout);
       });
       clearTimeout(initTimeout);
     };
   }, [barCount, generateInitialState, speed, updateBar]);
 
-  const getSegmentHeight = useCallback((segmentIndex: number, totalSegments: number) => {
-    const segmentSize = containerHeight / totalSegments;
-    return segmentSize;
-  }, [containerHeight]);
+  const getSegmentHeight = useCallback(
+    (segmentIndex: number, totalSegments: number) => {
+      const segmentSize = containerHeight / totalSegments;
+      return segmentSize;
+    },
+    [containerHeight]
+  );
 
   if (bars.length === 0) return null;
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className={`flex items-end ${className}`}
-      style={{ 
+      style={{
         gap: `${gap}px`,
         height: `${containerHeight}px`,
-        width: '100%'
+        width: '100%',
       }}
     >
       {bars.map((bar, barIndex) => (

@@ -12,7 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" className="h-full">
-      <body className={`antialiased h-full`}>
+      <body className={`h-full antialiased`}>
         <main className="h-full">{children}</main>
       </body>
     </html>

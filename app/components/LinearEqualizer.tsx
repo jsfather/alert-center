@@ -37,17 +37,23 @@ export default function LinearEqualizer({
     return Math.random() * (maxWidth - minWidth) + minWidth;
   }, [maxWidth, minWidth]);
 
-  const updateLine = useCallback((index: number) => {
-    setLineWidths(prev => {
-      const newWidths = [...prev];
-      newWidths[index] = generateWidth();
-      return newWidths;
-    });
+  const updateLine = useCallback(
+    (index: number) => {
+      setLineWidths((prev) => {
+        const newWidths = [...prev];
+        newWidths[index] = generateWidth();
+        return newWidths;
+      });
 
-    animationFrames.current[index] = window.setTimeout(() => {
-      updateLine(index);
-    }, transitionDuration + Math.random() * speed);
-  }, [generateWidth, speed, transitionDuration]);
+      animationFrames.current[index] = window.setTimeout(
+        () => {
+          updateLine(index);
+        },
+        transitionDuration + Math.random() * speed
+      );
+    },
+    [generateWidth, speed, transitionDuration]
+  );
 
   const initializeLines = useCallback(() => {
     const initialWidths = Array(lineCount)
@@ -61,17 +67,20 @@ export default function LinearEqualizer({
 
     const initTimeout = setTimeout(() => {
       setIsInitialized(true);
-      
+
       // Start animation for each line with staggered delays
       for (let i = 0; i < lineCount; i++) {
-        animationFrames.current[i] = window.setTimeout(() => {
-          updateLine(i);
-        }, i * 50 + Math.random() * speed);
+        animationFrames.current[i] = window.setTimeout(
+          () => {
+            updateLine(i);
+          },
+          i * 50 + Math.random() * speed
+        );
       }
     }, 100);
 
     return () => {
-      animationFrames.current.forEach(timeout => {
+      animationFrames.current.forEach((timeout) => {
         if (timeout) clearTimeout(timeout);
       });
       clearTimeout(initTimeout);
@@ -81,13 +90,16 @@ export default function LinearEqualizer({
   if (lineWidths.length === 0) return null;
 
   const totalContentHeight = (lineHeight + gap) * lineCount - gap;
-  const verticalPadding = Math.max(0, (containerHeight - totalContentHeight) / 2);
+  const verticalPadding = Math.max(
+    0,
+    (containerHeight - totalContentHeight) / 2
+  );
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className={`flex flex-col justify-center ${className}`}
-      style={{ 
+      style={{
         gap: `${gap}px`,
         height: `${containerHeight}px`,
         padding: `${verticalPadding}px 0`,
@@ -108,4 +120,4 @@ export default function LinearEqualizer({
       ))}
     </div>
   );
-} 
+}

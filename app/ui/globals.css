@@ -1,16 +1,19 @@
 @import 'tailwindcss';
 
 :root {
-    --background-color: #000000;
+  --background-color: #000000;
 }
 
-@layer utilities  {
-    .bg-dotted {
-        background-image: radial-gradient(rgba(217, 217, 217 , 0.05) 4px, transparent 0);
-        background-size: 25px 25px;
-    }
+@layer utilities {
+  .bg-dotted {
+    background-image: radial-gradient(
+      rgba(217, 217, 217, 0.05) 4px,
+      transparent 0
+    );
+    background-size: 25px 25px;
+  }
 }
 
 html {
-    background-color: var(--background-color);
+  background-color: var(--background-color);
 }

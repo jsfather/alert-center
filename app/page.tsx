@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import LinearEqualizer from '@/app/components/LinearEqualizer';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useState, useEffect } from 'react';
 
@@ -66,15 +66,15 @@ export default function Page() {
               root: {
                 margin: 'auto 16px',
                 width: '150px',
-                height: '150px'
+                height: '150px',
               },
               path: {
-                stroke: "#808080",
-                strokeWidth: '4px'
+                stroke: '#808080',
+                strokeWidth: '4px',
               },
               trail: {
                 stroke: '#191919',
-                strokeWidth: '4px'
+                strokeWidth: '4px',
               },
               text: {
                 fill: '#808080',
@@ -82,10 +82,6 @@ export default function Page() {
               },
             }}
           />
-
-
-
-
 
           <LinearEqualizer
             className="h-[200px] w-full"
