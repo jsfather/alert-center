@@ -7,13 +7,14 @@ interface Color {
   chance: number;
 }
 
-interface SparklineSquaresProps {
+interface SparklineDotsProps {
   rows?: number;
   columns?: number;
   squareSize?: number;
   gap?: number;
   colors?: Color[];
   speed?: number;
+  shape?: 'square' | 'circle';
 }
 
 const DEFAULT_COLORS: Color[] = [
@@ -26,7 +27,7 @@ const DEFAULT_COLORS: Color[] = [
 const getRandomColor = (colors: Color[]) => {
   const totalChances = colors.reduce((sum, item) => sum + item.chance, 0);
   let random = Math.random() * totalChances;
-  
+
   for (let i = 0; i < colors.length; i++) {
     random -= colors[i].chance;
     if (random <= 0) {
@@ -36,28 +37,35 @@ const getRandomColor = (colors: Color[]) => {
   return colors.length - 1;
 };
 
-export default function SparklineSquares({
+export default function SparklineDots({
   rows = 5,
   columns = 10,
   squareSize = 10,
   gap = 4,
   colors = DEFAULT_COLORS,
   speed = 2000,
-}: SparklineSquaresProps) {
+  shape = 'circle',
+}: SparklineDotsProps) {
   const [squareColors, setSquareColors] = useState<number[][]>([]);
 
-  const updateSquareColor = useCallback((rowIndex: number, colIndex: number) => {
-    setSquareColors((prev) => {
-      const newGrid = [...prev];
-      newGrid[rowIndex] = [...newGrid[rowIndex]];
-      newGrid[rowIndex][colIndex] = getRandomColor(colors);
-      return newGrid;
-    });
-    
-    setTimeout(() => {
-      updateSquareColor(rowIndex, colIndex);
-    }, Math.random() * (speed / 2) + speed / 2);
-  }, [colors, speed]);
+  const updateSquareColor = useCallback(
+    (rowIndex: number, colIndex: number) => {
+      setSquareColors((prev) => {
+        const newGrid = [...prev];
+        newGrid[rowIndex] = [...newGrid[rowIndex]];
+        newGrid[rowIndex][colIndex] = getRandomColor(colors);
+        return newGrid;
+      });
+
+      setTimeout(
+        () => {
+          updateSquareColor(rowIndex, colIndex);
+        },
+        Math.random() * (speed / 2) + speed / 2
+      );
+    },
+    [colors, speed]
+  );
 
   useEffect(() => {
     const newGrid = Array(rows)
@@ -93,7 +101,7 @@ export default function SparklineSquares({
         row.map((colorIndex, colIndex) => (
           <div
             key={`${rowIndex}-${colIndex}`}
-            className="transition-colors duration-300 ease-in-out"
+            className={`transition-colors duration-300 ease-in-out ${shape === 'circle' ? 'rounded-full' : ''}`}
             style={{
               width: `${squareSize}px`,
               height: `${squareSize}px`,

@@ -1,9 +1,9 @@
-import SparklineSquares from '@/app/components/SparklineSquares';
+import SparklineDots from '@/app/components/SparklineDots';
 
 export default function Page() {
   return (
     <div className="p-4">
-      <SparklineSquares
+      <SparklineDots
         squareSize={10}
         rows={3}
         columns={31}
