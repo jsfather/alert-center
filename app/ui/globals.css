@@ -6,7 +6,7 @@
 
 @layer utilities  {
     .bg-dotted {
-        background-image: radial-gradient(#0b0b0b 4px, transparent 0);
+        background-image: radial-gradient(rgba(217, 217, 217 , 0.05) 4px, transparent 0);
         background-size: 25px 25px;
     }
 }
