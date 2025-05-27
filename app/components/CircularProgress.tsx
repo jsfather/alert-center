@@ -1,111 +1,68 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 interface CircularProgressProps {
   targetPercentage: number;
-  size: number;
-  strokeWidth: number;
-  color: string;
-  duration: number;
+  changeDelay?: number;
+  margin?: string;
+  width?: string;
+  height?: string;
 }
 
 export default function CircularProgress({
   targetPercentage,
-  size,
-  strokeWidth,
-  color,
-  duration,
+  changeDelay = 2000,
+  margin = '0',
+  width = '100%',
+  height = '100%',
 }: CircularProgressProps) {
-  const [percentage, setPercentage] = useState(0);
-
-  const animateProgress = useCallback(
-    (from: number, to: number, duration: number) => {
-      const startTime = Date.now();
-
-      const animate = () => {
-        const currentTime = Date.now();
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        setPercentage(from + (to - from) * progress);
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else if (to === targetPercentage) {
-          // After reaching target, animate to 100%
-          animateProgress(targetPercentage, 100, duration / 2);
-        } else if (to === 100) {
-          // After reaching 100%, reset to 0 and start over
-          setPercentage(0);
-          setTimeout(() => {
-            animateProgress(0, targetPercentage, duration);
-          }, 500); // Wait 500ms before restarting
-        }
-      };
-
-      requestAnimationFrame(animate);
-    },
-    [targetPercentage]
-  );
+  const [percentage, setPercentage] = useState(targetPercentage);
 
   useEffect(() => {
-    // Start the animation sequence
-    animateProgress(0, targetPercentage, duration);
-
-    return () => {
-      setPercentage(0);
+    const changePercentage = async () => {
+      while (true) {
+        await delay(changeDelay);
+        setPercentage(100);
+        await delay(changeDelay);
+        setPercentage(0);
+        await delay(changeDelay);
+        setPercentage(targetPercentage);
+        await delay(changeDelay);
+      }
     };
-  }, [targetPercentage, duration, animateProgress]);
 
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const strokeDashoffset = circumference - (percentage / 100) * circumference;
-  const fontSize = size * 0.2;
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+    changePercentage();
+  }, []);
 
   return (
-    <div style={{ width: size, height: size, position: 'relative' }}>
-      <svg
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
-        style={{ transform: 'rotate(-90deg)' }}
-      >
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke="#e6e6e6"
-          strokeWidth={strokeWidth}
-        />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke={color}
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          style={{
-            transition: 'stroke-dashoffset 0.1s ease',
-          }}
-        />
-      </svg>
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          fontSize: `${fontSize}px`,
-          fontWeight: 'bold',
-          color: color,
-        }}
-      >
-        {Math.round(percentage)}%
-      </div>
-    </div>
+    <CircularProgressbar
+      value={percentage}
+      text={`${Math.round(percentage)}`}
+      styles={{
+        root: {
+          margin: margin,
+          width: width,
+          height: height,
+        },
+        path: {
+          stroke: '#808080',
+          strokeWidth: '4px',
+          transition: 'stroke-dashoffset 0.5s ease 0s',
+        },
+        trail: {
+          stroke: '#191919',
+          strokeWidth: '4px',
+        },
+        text: {
+          fill: '#808080',
+          fontSize: '25px',
+        },
+      }}
+    />
   );
 }
