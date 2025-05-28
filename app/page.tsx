@@ -1,168 +1,100 @@
 'use client';
 
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Image from 'next/image';
-import HorizontalLinearEqualizer from '@/app/components/HorizontalLinearEqualizer';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import { useState, useEffect } from 'react';
-import VerticalLinearEqualizer from '@/app/components/VerticalLinearEqualizer';
-import SparklineDots from '@/app/components/SparklineDots';
 
 export default function Page() {
-  const [progress, setProgress] = useState({
-    progress1: 0,
-    progress2: 10,
-    progress3: 0,
-    progress4: 66,
-  });
-
-  useEffect(() => {
-    const values = {
-      progress1: [0, 75, 100, 0],
-      progress2: [10, 55, 90, 10],
-      progress3: [0, 80, 25, 0],
-      progress4: [66, 50, 7, 66],
-    };
-    let currentIndex = 0;
-
-    const interval = setInterval(() => {
-      setProgress((prev) => ({
-        ...prev,
-        progress1: values.progress1[currentIndex],
-        progress2: values.progress2[currentIndex],
-        progress3: values.progress3[currentIndex],
-        progress4: values.progress4[currentIndex],
-      }));
-      currentIndex = (currentIndex + 1) % values.progress1.length;
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="bg-dotted grid h-full min-h-screen grid-cols-3 p-4">
-      <div>
-        <div className="flex h-fit flex-row items-center gap-4">
+    <div className="bg-dotted grid h-full min-h-screen grid-cols-3  p-4">
+      <div className="flex flex-col  items-center">
+        <div className="flex flex-row items-center justify-around px-4">
           <Image
             src="/login/glob.png"
-            width={137}
-            height={137}
-            alt="Picture of the author"
+            alt="Globe"
+            width={1000}
+            height={1000}
+            className="h-[137px] w-[137px]"
           />
-          <HorizontalLinearEqualizer
-            className="h-[200px] w-full"
-            lineCount={13}
-            lineHeight={1}
-            gap={5}
-            color="#e6e6e6"
-            containerHeight={100}
-            transitionDuration={4000}
-            speed={4000}
+          <DotLottieReact
+            src="/lottie/horizontal-equalizer.json"
+            loop
+            autoplay
+            className="h-[110px] w-[417px]"
           />
         </div>
-        <div className="flex h-fit flex-row items-center gap-4">
-          <div>
-            <CircularProgressbar
-              value={progress.progress2}
-              text={`${Math.round(progress.progress2)}`}
-              styles={{
-                root: {
-                  margin: 'auto 16px',
-                  width: '150px',
-                  height: '150px',
-                },
-                path: {
-                  stroke: '#808080',
-                  strokeWidth: '4px',
-                },
-                trail: {
-                  stroke: '#191919',
-                  strokeWidth: '4px',
-                },
-                text: {
-                  fill: '#808080',
-                  fontSize: '25px',
-                },
-              }}
+        <div className="flex flex-row justify-around px-4">
+          <div className="flex flex-col">
+            <Image
+              src="/login/sample-circular-progress-1.png"
+              alt="Sample circular progress 1"
+              width={100}
+              height={100}
+              className="h-[180px] w-[170px]"
             />
-            <CircularProgressbar
-              value={progress.progress2}
-              text={`${Math.round(progress.progress2)}`}
-              styles={{
-                root: {
-                  margin: 'auto 16px',
-                  width: '150px',
-                  height: '150px',
-                },
-                path: {
-                  stroke: '#808080',
-                  strokeWidth: '4px',
-                },
-                trail: {
-                  stroke: '#191919',
-                  strokeWidth: '4px',
-                },
-                text: {
-                  fill: '#808080',
-                  fontSize: '25px',
-                },
-              }}
+            <Image
+              src="/login/sample-circular-progress-2.png"
+              alt="Sample circular progress 2"
+              width={100}
+              height={100}
+              className="h-[180px] w-[170px]"
             />
           </div>
-
-          <div className="flex flex-col gap-4">
-            <VerticalLinearEqualizer
-              lineCount={52}
-              lineWidth={5}
-              containerHeight={70}
-              colors={[
-                { color: '#119892', chance: 1 },
-                { color: '#7d7d7d', chance: 1 },
-                { color: '#031f1e', chance: 1 },
-                { color: '#a6a6a6', chance: 1 },
-              ]}
+          <div className="flex flex-col justify-center gap-4">
+            <DotLottieReact
+              src="/lottie/vertical-equalizer.json"
+              loop
+              autoplay
+              height={100}
+              width={100}
+              className="h-[120px] w-[374px] "
             />
-            <SparklineDots
-              rows={3}
-              columns={20}
-              colors={[
-                { color: '#000000', chance: 5 },
-                { color: '#4f4f4f', chance: 2 },
-                { color: '#ebebeb', chance: 1 },
-              ]}
-            />{' '}
-            <SparklineDots
-              rows={3}
-              columns={20}
-              colors={[
-                { color: '#000000', chance: 5 },
-                { color: '#4f4f4f', chance: 2 },
-                { color: '#ebebeb', chance: 1 },
-              ]}
-            />{' '}
-            <SparklineDots
-              rows={3}
-              columns={35}
-              colors={[
-                { color: '#000000', chance: 5 },
-                { color: '#4f4f4f', chance: 2 },
-                { color: '#ebebeb', chance: 1 },
-              ]}
-            />{' '}
-            <SparklineDots
-              rows={3}
-              columns={35}
-              colors={[
-                { color: '#000000', chance: 5 },
-                { color: '#4f4f4f', chance: 2 },
-                { color: '#ebebeb', chance: 1 },
-              ]}
-            />
+            <Image
+              src="/login/sample-sparkline-dots-1.png"
+              alt="Sample sparkline dots 1"
+              width={100}
+              height={100}
+              className="h-[78px] w-[306px]"
+            /><Image
+            src="/login/sample-sparkline-dots-2.png"
+            alt="Sample sparkline dots 2"
+            width={100}
+            height={100}
+            className="h-[87px] w-[372px]"
+          />
           </div>
+        </div>
+        <Image
+          src="/login/sample-rectangle-equalizer-1.png"
+          alt="Sample rectangle equalizer 1"
+          width={100}
+          height={100}
+          className="w-full max-w-[496px] "
+        />
+        <div className="flex flex-row justify-around px-4 items-center">
+          <DotLottieReact
+            src="/lottie/progress-bars-chart-rounded.json"
+            loop
+            autoplay
+            className="h-[190px] w-[190px]"
+          />
+          <DotLottieReact
+            src="/lottie/radar-complex.json"
+            loop
+            autoplay
+            className="h-[190px] w-[190px]"
+          />
         </div>
       </div>
-      {/*<div className="bg-blue-100 p-4"></div>;*/}
-      {/*<div className="bg-green-100 p-4"></div>;*/}
+      <div className="flex flex-col items-center ">
+        <DotLottieReact
+          src="/lottie/globe.json"
+          loop
+          autoplay
+          className="h-[500px] w-[500px]"
+        />
+        <h1 className="text-primary-500 text-6xl font-black">مرکز هشدار</h1>
+      </div>
+      <div className=""></div>
     </div>
   );
 }
