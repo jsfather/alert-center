@@ -4,7 +4,6 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Image from 'next/image';
 
 export default function Page() {
-
   return (
     <div className="h-full">
       <div className="grid grid-cols-4">
@@ -56,6 +55,15 @@ export default function Page() {
             className="animate-spin"
           />
         </div>
+        <DotLottieReact
+          src="/lottie/globe.json"
+          loop
+          autoplay
+          className="h-[500px] w-[500px]"
+        />
+        <DotLottieReact src="/lottie/radar-complex.json" loop autoplay />
+        <DotLottieReact src="/lottie/horizontal-equalizer.json" loop autoplay />
+        <DotLottieReact src="/lottie/vertical-equalizer.json" loop autoplay />
       </div>
     </div>
   );
