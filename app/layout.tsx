@@ -13,8 +13,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" className="h-full">
-      <body className={`h-full antialiased ${danaFaNum.variable} ${dana.variable} font-dana-fanum`}>
-        <main className="h-full">{children}</main>
+      <body className={`h-screen antialiased ${danaFaNum.variable} ${dana.variable} font-dana-fanum overflow-x-hidden`}>
+        <main className="overflow-x-hidden">{children}</main>
       </body>
     </html>
   );
