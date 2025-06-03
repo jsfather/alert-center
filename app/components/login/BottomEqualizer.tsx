@@ -1,9 +1,9 @@
 'use client';
 
-import styles from './Equalizer.module.css';
+import styles from './BottomEqualizer.module.css';
 import { useEffect, useState } from 'react';
 
-export default function Equalizer() {
+export default function BottomEqualizer() {
   const colors = [
     styles['color-1'],
     styles['color-2'],
