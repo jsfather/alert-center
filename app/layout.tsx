@@ -1,6 +1,5 @@
-import '@/app/ui/globals.css';
-import { dana, danaFaNum } from '@/app/ui/fonts';
-
+import '@/app/globals.css';
+import { dana, danaFaNum } from '@/app/fonts';
 
 export default function RootLayout({
   children,
@@ -12,7 +11,7 @@ export default function RootLayout({
       <body
         className={`h-screen antialiased ${danaFaNum.variable} ${dana.variable} font-dana-fanum overflow-x-hidden`}
       >
-        <main className="overflow-x-hidden">{children}</main>
+        {children}
       </body>
     </html>
   );
