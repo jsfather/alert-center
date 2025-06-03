@@ -1,5 +1,3 @@
-'use client';
-
 import '@/app/ui/globals.css';
 import { dana, danaFaNum } from '@/app/ui/fonts';
 
