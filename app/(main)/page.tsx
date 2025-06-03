@@ -2,13 +2,13 @@
 
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Image from 'next/image';
-import SparklineDots from '@/app/components/login/SparklineDots';
-import BottomEqualizer from '@/app/components/login/BottomEqualizer';
-import Input from '@/app/ui/input';
+import SparklineDots from '@/app/components/layout/login/SparklineDots';
+import BottomEqualizer from '@/app/components/layout/login/BottomEqualizer';
+import Input from '@/app/components/ui/Input';
 import React, { useState, useEffect } from 'react';
 import { LockKeyholeOpen, UserSquare2 } from 'lucide-react';
-import CircularProgress from '@/app/components/login/CircularProgress';
-import BlockEqualizer from '@/app/components/login/BlockEqualizer';
+import CircularProgress from '@/app/components/layout/login/CircularProgress';
+import BlockEqualizer from '@/app/components/layout/login/BlockEqualizer';
 
 const LoadingScreen = () => {
   return (
@@ -24,7 +24,7 @@ export default function Page() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 800); // Reduced to 800ms
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);
