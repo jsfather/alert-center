@@ -1,5 +1,5 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 const persianToEnglish: { [key: string]: string } = {
   '۰': '0',
@@ -87,5 +87,5 @@ export const extractEnglishNumbers = (input: string): string[] => {
 export { persianToEnglish, arabicToEnglish };
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
