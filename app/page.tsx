@@ -3,16 +3,17 @@
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Image from 'next/image';
 import SparklineDots from '@/app/components/login/SparklineDots';
-import Equalizer from '@/app/components/login/Equalizer';
+import BottomEqualizer from '@/app/components/login/BottomEqualizer';
 import Input from '@/app/ui/input';
 import React, { useState, useEffect } from 'react';
 import { LockKeyholeOpen, UserSquare2 } from 'lucide-react';
 import CircularProgress from '@/app/components/login/CircularProgress';
+import BlockEqualizer from '@/app/components/login/BlockEqualizer';
 
 const LoadingScreen = () => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-      <div className="w-24 h-24 border-2 border-t-primary-500 rounded-full animate-spin"></div>
+      <div className="border-t-primary-500 h-24 w-24 animate-spin rounded-full border-2"></div>
     </div>
   );
 };
@@ -127,20 +128,8 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="flex max-h-[150px] w-1/2 flex-col">
-            <Equalizer
-              segmentCount={30}
-              barWidth={10}
-              barCount={15}
-              colors={[
-                '#636363',
-                '#3d3d3d',
-                '#fbfbfb',
-                '#282828',
-                '282828',
-                '#616161',
-              ]}
-            />
+          <div className="flex w-full px-12 h-[150px] flex-col">
+            <BlockEqualizer />
           </div>
           <div className="flex flex-row items-center justify-around px-4">
             <DotLottieReact
@@ -304,23 +293,7 @@ export default function Page() {
           </div>
         </div>
         <div className="absolute bottom-0 w-full">
-          <Equalizer
-            segmentCount={9}
-            barWidth={20}
-            barCount={60}
-            colors={[
-              '#636363',
-              '#3d3d3d',
-              '#0d736f',
-              '#fbfbfb',
-              '#414141',
-              '#282828',
-              '282828',
-              '414141',
-              '#084a47',
-              '#616161',
-            ]}
-          />
+         <BottomEqualizer />
         </div>
       </div>
     </>
