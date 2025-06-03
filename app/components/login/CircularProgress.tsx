@@ -4,21 +4,21 @@ import { useEffect, useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-interface CircularProgressProps {
+interface CircularProgressClientProps {
   targetPercentage: number;
-  changeDelay?: number;
-  margin?: string;
-  width?: string;
-  height?: string;
+  changeDelay: number;
+  margin: string;
+  width: string;
+  height: string;
 }
 
-export default function CircularProgress({
+function CircularProgressClient({
   targetPercentage,
-  changeDelay = 2000,
-  margin = '0',
-  width = '100%',
-  height = '100%',
-}: CircularProgressProps) {
+  changeDelay,
+  margin,
+  width,
+  height,
+}: CircularProgressClientProps) {
   const [percentage, setPercentage] = useState(targetPercentage);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function CircularProgress({
     const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     changePercentage();
-  }, []);
+  }, [targetPercentage, changeDelay]);
 
   return (
     <CircularProgressbar
@@ -63,6 +63,33 @@ export default function CircularProgress({
           fontSize: '25px',
         },
       }}
+    />
+  );
+}
+
+interface CircularProgressProps {
+  targetPercentage: number;
+  changeDelay?: number;
+  margin?: string;
+  width?: string;
+  height?: string;
+}
+
+export default function CircularProgress({
+  targetPercentage,
+  changeDelay = 2000,
+  margin = '0',
+  width = '100%',
+  height = '100%',
+}: CircularProgressProps) {
+
+  return (
+    <CircularProgressClient
+      targetPercentage={targetPercentage}
+      changeDelay={changeDelay}
+      margin={margin}
+      width={width}
+      height={height}
     />
   );
 }
