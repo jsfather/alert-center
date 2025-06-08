@@ -1,5 +1,5 @@
-import DashboardCard from "@/app/components/layout/dashboard/DashboardCard";
-import CreateDashboardCard from "@/app/components/layout/dashboard/CreateDashboardCard";
+import DashboardCard from "@/app/components/ui/panel/dashboard/DashboardCard";
+import CreateDashboardCard from "@/app/components/ui/panel/dashboard/CreateDashboardCard";
 
 export default function Page(){
     return <div className="text-red-50">

@@ -1,7 +1,7 @@
 'use client';
 
-import Header from '@/app/components/layout/dashboard/Header';
-import Sidebar from '@/app/components/layout/dashboard/Sidebar';
+import Header from '@/app/components/layout/panel/Header';
+import Sidebar from '@/app/components/layout/panel/Sidebar';
 
 export default function Layout({
   children,
