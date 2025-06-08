@@ -10,6 +10,7 @@ import { LockKeyholeOpen, UserSquare2 } from 'lucide-react';
 import CircularProgress from '@/app/components/ui/auth/login/CircularProgress';
 import BlockEqualizer from '@/app/components/ui/auth/login/BlockEqualizer';
 import { useRouter } from 'next/navigation';
+import HorizontalEqualizer from '@/app/components/ui/auth/login/HorizontalEqualizer';
 
 const LoadingScreen = () => {
   return (
@@ -50,12 +51,9 @@ export default function Page() {
               className="h-[137px] w-[137px]"
               priority
             />
-            <DotLottieReact
-              src="/lottie/horizontal-equalizer.json"
-              loop
-              autoplay
-              className="h-[110px] w-[417px]"
-            />
+            <div className="h-[110px] w-[417px]">
+              <HorizontalEqualizer />
+            </div>
           </div>
           <div className="flex flex-row justify-around px-4">
             <div className="flex flex-col">
