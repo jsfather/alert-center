@@ -22,21 +22,33 @@ function CircularProgressClient({
   const [percentage, setPercentage] = useState(targetPercentage);
 
   useEffect(() => {
+    let isCancelled = false;
+
+    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
     const changePercentage = async () => {
-      while (true) {
+      while (!isCancelled) {
         await delay(changeDelay);
+        if (isCancelled) break;
         setPercentage(100);
+
         await delay(changeDelay);
+        if (isCancelled) break;
         setPercentage(0);
+
         await delay(changeDelay);
+        if (isCancelled) break;
         setPercentage(targetPercentage);
+
         await delay(changeDelay);
       }
     };
 
-    const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+    void changePercentage();
 
-    changePercentage();
+    return () => {
+      isCancelled = true;
+    };
   }, [targetPercentage, changeDelay]);
 
   return (
