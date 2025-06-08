@@ -1,11 +1,11 @@
 'use client';
 
-import DashboardButton from '@/app/components/layout/dashboard/DashboardButton';
+import DashboardButton from '@/app/components/ui/panel/dashboard/DashboardButton';
 import { PlusSquare } from 'lucide-react';
 
 const DashboardCard = () => {
   return (
-    <div className="relative h-[228px] w-[368px] ">
+    <div className="relative h-[228px] w-[368px]">
       <div className="flex h-full flex-col items-center justify-center">
         <div className="text-[14px]">
           برای ایجاد داشبورد جدید روی دکمه زیر کلیک کنید
@@ -13,7 +13,11 @@ const DashboardCard = () => {
         <div className="mt-[6px] text-[12px] text-neutral-400">
           داشبورد‌های متن ساختگی است که باید در ان زمان قرار بگیرد.
         </div>
-        <DashboardButton title="ایجاد داشبورد" className="mt-[15px]" prepend={ <PlusSquare size={20} />} />
+        <DashboardButton
+          title="ایجاد داشبورد"
+          className="mt-[15px]"
+          prepend={<PlusSquare size={20} />}
+        />
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-10">
