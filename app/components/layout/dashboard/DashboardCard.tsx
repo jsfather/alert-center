@@ -26,32 +26,32 @@ const DashboardCard = () => {
               <path
                 d="M6.42505 4.7906L8.26925 1.65137L10.0795 4.7906"
                 stroke="white"
-                stroke-width="1.125"
+                strokeWidth="1.125"
               />
               <path
                 d="M9.80974 7.21919L11.5073 7.23201L10.6617 8.69489"
                 stroke="white"
-                stroke-width="1.125"
+                strokeWidth="1.125"
               />
               <path
                 d="M5.46182 12.8846L1.82107 12.8571L3.63459 9.71975"
                 stroke="white"
-                stroke-width="1.125"
+                strokeWidth="1.125"
               />
               <path
                 d="M5.88484 8.69648L5.04714 7.21989L6.73684 7.22077"
                 stroke="white"
-                stroke-width="1.125"
+                strokeWidth="1.125"
               />
               <path
                 d="M11.2179 12.8846L14.8586 12.8571L13.0451 9.71975"
                 stroke="white"
-                stroke-width="1.125"
+                strokeWidth="1.125"
               />
               <path
                 d="M7.40259 11.3515L8.2625 12.8153L9.10659 11.3515"
                 stroke="white"
-                stroke-width="1.125"
+                strokeWidth="1.125"
               />
             </svg>
           }

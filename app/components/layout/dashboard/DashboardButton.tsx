@@ -1,5 +1,4 @@
 import styles from './DashboardButton.module.css';
-import { PlusSquare } from 'lucide-react';
 import type { ButtonHTMLAttributes } from 'react';
 
 interface DashboardButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

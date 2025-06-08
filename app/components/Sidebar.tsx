@@ -23,7 +23,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 w-64 text-white">
+    <aside className="fixed right-0 top-0 h-screen w-64 bg-gray-900 text-white shadow-xl z-50">
       {/* Logo/Header */}
       <div className="p-4 border-b border-gray-800">
         <h1 className="text-xl font-bold text-right">مرکز هشدار ایران</h1>
@@ -54,7 +54,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Logout Button */}
-      <div className="p-4 border-t border-gray-800">
+      <div className="absolute bottom-0 right-0 w-full p-4 border-t border-gray-800">
         <button
           onClick={() => {/* Add logout logic here */}}
           className="flex items-center justify-end w-full space-x-3 space-x-reverse p-3 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors"
@@ -63,6 +63,6 @@ export default function Sidebar() {
           <ArrowLeftOnRectangleIcon className="w-6 h-6" />
         </button>
       </div>
-    </div>
+    </aside>
   );
 } 
