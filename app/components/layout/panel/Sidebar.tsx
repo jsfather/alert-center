@@ -2,20 +2,21 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  HomeIcon, 
-  UserIcon, 
-  Cog6ToothIcon, 
-  BellIcon, 
+import {
+  RectangleGroupIcon,
+  UsersIcon,
+  Cog6ToothIcon,
+  BellAlertIcon,
   QuestionMarkCircleIcon,
-  ArrowLeftOnRectangleIcon 
+  ArrowRightStartOnRectangleIcon,
 } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 const menuItems = [
-  { name: 'صفحه اصلی', icon: HomeIcon, href: '/dashboard' },
-  { name: 'پروفایل کاربری', icon: UserIcon, href: '/profile' },
+  { name: 'صفحه اصلی', icon: RectangleGroupIcon, href: '/dashboard' },
+  { name: 'پروفایل کاربری', icon: UsersIcon, href: '/profile' },
   { name: 'تنظیمات', icon: Cog6ToothIcon, href: '/settings' },
-  { name: 'هشدارها', icon: BellIcon, href: '/alerts' },
+  { name: 'هشدارها', icon: BellAlertIcon, href: '/alerts' },
   { name: 'کمک', icon: QuestionMarkCircleIcon, href: '/help' },
 ];
 
@@ -23,13 +24,13 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col h-screen bg-neutral-900 w-64 text-white">
-      {/* Logo/Header */}
-      <div className="p-4 border-b border-gray-800">
-        <h1 className="text-xl font-bold text-right">مرکز هشدار ایران</h1>
+    <div className="flex h-screen w-64 flex-col bg-neutral-900 text-white">
+
+      <div className="h-[82px] px-6 flex items-center gap-3">
+        <Image src="/logo.svg" alt="Logo" width={32} height={32} />
+        <h1 className="text-xl font-bold">مرکز هشدار ایران</h1>
       </div>
 
-      {/* Menu Items */}
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
           {menuItems.map((item) => {
@@ -38,15 +39,14 @@ export default function Sidebar() {
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className={`flex items-center space-x-3  p-3 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-3 rounded-lg p-3 transition-colors ${
                     isActive
                       ? 'bg-primary-500 text-white'
                       : 'text-gray-300 hover:bg-neutral-800'
                   }`}
                 >
-                  <item.icon className="w-6 h-6" />
+                  <item.icon className="h-6 w-6" />
                   <span>{item.name}</span>
-
                 </Link>
               </li>
             );
@@ -54,16 +54,15 @@ export default function Sidebar() {
         </ul>
       </nav>
 
-      {/* Logout Button */}
-      <div className="p-4 border-t border-gray-800">
+      <div className="border-t border-gray-800 p-4">
         <button
-          onClick={() => {/* Add logout logic here */}}
-          className="flex items-center justify-end w-full space-x-3 space-x-reverse p-3 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors"
+          onClick={() => {}}
+          className="flex w-full items-center cursor-pointer space-x-3 rounded-lg p-3 text-gray-300 transition-colors hover:bg-gray-800"
         >
+          <ArrowRightStartOnRectangleIcon className="h-6 w-6" />
           <span>خروج از حساب</span>
-          <ArrowLeftOnRectangleIcon className="w-6 h-6" />
         </button>
       </div>
     </div>
   );
-} 
+}
