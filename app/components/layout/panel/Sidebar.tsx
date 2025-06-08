@@ -25,8 +25,7 @@ export default function Sidebar() {
 
   return (
     <div className="flex h-screen w-64 flex-col bg-neutral-900 text-white">
-
-      <div className="h-[82px] px-6 flex items-center gap-3">
+      <div className="flex h-[82px] items-center gap-3 px-6">
         <Image src="/logo.svg" alt="Logo" width={32} height={32} />
         <h1 className="text-xl font-bold">مرکز هشدار ایران</h1>
       </div>
@@ -57,7 +56,7 @@ export default function Sidebar() {
       <div className="border-t border-gray-800 p-4">
         <button
           onClick={() => {}}
-          className="flex w-full items-center cursor-pointer space-x-3 rounded-lg p-3 text-gray-300 transition-colors hover:bg-gray-800"
+          className="flex w-full cursor-pointer items-center space-x-3 rounded-lg p-3 text-gray-300 transition-colors hover:bg-gray-800"
         >
           <ArrowRightStartOnRectangleIcon className="h-6 w-6" />
           <span>خروج از حساب</span>

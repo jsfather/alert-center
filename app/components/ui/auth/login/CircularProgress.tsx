@@ -82,7 +82,6 @@ export default function CircularProgress({
   width = '100%',
   height = '100%',
 }: CircularProgressProps) {
-
   return (
     <CircularProgressClient
       targetPercentage={targetPercentage}

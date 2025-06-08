@@ -169,7 +169,7 @@ export default function Page() {
               prependIcon={<LockKeyholeOpen className="text-primary-500" />}
             />
             <button
-              className="bg-primary-500 mt-2 w-full rounded-lg p-3 cursor-pointer"
+              className="bg-primary-500 mt-2 w-full cursor-pointer rounded-lg p-3"
               onClick={() => router.push('/dashboard')}
             >
               ورود به سامانه

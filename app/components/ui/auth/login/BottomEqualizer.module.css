@@ -18,7 +18,6 @@
 
 .block {
   width: 100%;
-
 }
 
 .block:nth-child(1) {
@@ -118,7 +117,7 @@
 }
 
 .bar:nth-child(8) {
-  animation: bounce8 1.0s infinite alternate ease-in-out;
+  animation: bounce8 1s infinite alternate ease-in-out;
 }
 
 .bar:nth-child(9) {
@@ -174,7 +173,7 @@
 }
 
 .bar:nth-child(22) {
-  animation: bounce22 1.0s infinite alternate ease-in-out;
+  animation: bounce22 1s infinite alternate ease-in-out;
 }
 
 .bar:nth-child(23) {
@@ -246,7 +245,7 @@
 }
 
 .bar:nth-child(40) {
-  animation: bounce40 1.0s infinite alternate ease-in-out;
+  animation: bounce40 1s infinite alternate ease-in-out;
 }
 
 .bar:nth-child(41) {
@@ -302,7 +301,7 @@
 }
 
 .bar:nth-child(54) {
-  animation: bounce54 1.0s infinite alternate ease-in-out;
+  animation: bounce54 1s infinite alternate ease-in-out;
 }
 
 .bar:nth-child(55) {

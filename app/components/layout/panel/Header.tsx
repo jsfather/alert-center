@@ -7,13 +7,13 @@ export default function Header() {
   const hasProfileImage = false;
 
   return (
-    <header className="h-[82px] bg-neutral-900 border-b border-neutral-800 gap-4 px-6 flex items-center justify-end">
+    <header className="flex h-[82px] items-center justify-end gap-4 border-b border-neutral-800 bg-neutral-900 px-6">
       <div className="flex items-center gap-3">
         <div className="flex flex-col items-end">
-          <span className="text-white text-sm">Admin</span>
-          <span className="text-neutral-400 text-xs">admin@hoshdar.fa</span>
+          <span className="text-sm text-white">Admin</span>
+          <span className="text-xs text-neutral-400">admin@hoshdar.fa</span>
         </div>
-        <div className="h-10 w-10 rounded-full overflow-hidden relative bg-neutral-800 flex items-center justify-center">
+        <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-neutral-800">
           {hasProfileImage ? (
             <Image
               src="/images/avatar.jpg"
