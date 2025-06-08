@@ -1,20 +1,61 @@
 'use client';
 
 import DashboardButton from '@/app/components/ui/panel/dashboard/DashboardButton';
+import {
+  RectangleGroupIcon,
+  ListBulletIcon,
+  KeyIcon,
+  ClockIcon,
+} from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 const DashboardCard = () => {
   return (
     <div className="relative h-[228px] w-[368px]">
-      <div className="flex h-full flex-col items-center justify-center">
-        <div className="text-[14px]">
-          برای ایجاد داشبورد جدید روی دکمه زیر کلیک کنید
+      <div className="flex flex-col">
+        <div className="flex flex-row items-center gap-2 pr-10 pt-8">
+          <div className="flex flex-col pb-8">
+            <div className="flex flex-row gap-2">
+              <RectangleGroupIcon width={17} height={17} />
+              <div className="text-[14px] font-bold">
+                داشبورد تحلیل آماری الف
+              </div>
+            </div>
+            <div className="mt-3 flex flex-row gap-2">
+              <ListBulletIcon
+                width={17}
+                height={17}
+                className="text-gray-400"
+              />
+              <div className="text-[14px] text-gray-400">
+                تعداد گزارش‌ها: ۲۰
+              </div>
+            </div>
+            <div className="mt-1 flex flex-row gap-2">
+              <KeyIcon width={17} height={17} className="text-gray-400" />
+              <div className="text-[14px] text-gray-400">
+                وضعیت دسترسی: اختصاصی
+              </div>
+            </div>
+            <div className="mt-1 flex flex-row gap-2">
+              <ClockIcon width={17} height={17} className="text-gray-400" />
+              <div className="text-[14px] text-gray-400">
+                تاخیر زمانی بروزرسانی: ۲ دقیقه
+              </div>
+            </div>
+          </div>
+          <Image
+            src="/panel/dashboard/graphs.png"
+            alt="graphs"
+            width={100}
+            height={100}
+            className="w-[110px] h-[60px]"
+          />
         </div>
-        <div className="mt-[6px] text-[12px] text-neutral-400">
-          داشبورد‌های متن ساختگی است که باید در ان زمان قرار بگیرد.
-        </div>
+
         <DashboardButton
           title="مشاهده داشبورد"
-          className="mt-[15px]"
+          className="self-center mt-[-16px]"
           prepend={
             <svg
               width="25"

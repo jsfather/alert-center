@@ -4,9 +4,11 @@ import CreateDashboardCard from '@/app/components/ui/panel/dashboard/CreateDashb
 export default function Page() {
   return (
     <div className="text-red-50">
-      <div className="flex flex-row gap-8">
+      <div className="grid grid-cols-4 gap-8">
         <CreateDashboardCard />
-        <DashboardCard />
+        {Array.from({ length: 11 }, (_, i) => (
+          <DashboardCard key={i} />
+        ))}
       </div>
     </div>
   );
