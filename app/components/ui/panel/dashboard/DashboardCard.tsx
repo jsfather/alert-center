@@ -61,13 +61,15 @@ const DashboardCard = () => {
       <div className="flex flex-col">
         <div className="flex flex-row items-center gap-2 pt-8 pr-10">
           <div className="flex flex-col pb-8">
-            <div className="flex flex-row gap-2 relative z-30">
+            <div className="relative z-30 flex flex-row gap-2">
               <RectangleGroupIcon width={17} height={17} />
               <div className="text-[14px] font-bold">
                 داشبورد تحلیل آماری الف
               </div>
             </div>
-            <div className={`${styles.blurContent} ${isMenuOpen ? styles.active : ''}`}>
+            <div
+              className={`${styles.blurContent} ${isMenuOpen ? styles.active : ''}`}
+            >
               <div className="mt-3 flex flex-row gap-2">
                 <ListBulletIcon
                   width={17}
@@ -155,7 +157,11 @@ const DashboardCard = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g ref={buttonRef} onClick={handleMenuClick} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
+          <g
+            ref={buttonRef}
+            onClick={handleMenuClick}
+            style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+          >
             <rect x="0" y="0" width="32" height="32" fill="transparent" />
             <path
               d="M9.37111 4.20396C10.1449 4.98575 11.4112 4.98575 12.185 4.20396C12.9589 3.42218 12.9589 2.1429 12.185 1.36112C11.4112 0.579337 10.1449 0.579337 9.37111 1.36112C8.59728 2.1429 8.59728 3.42218 9.37111 4.20396ZM7.96414 5.62538C7.19031 4.8436 5.92404 4.8436 5.1502 5.62538C4.37637 6.40717 4.37637 7.68645 5.1502 8.46823C5.92404 9.25001 7.19031 9.25001 7.96414 8.46823C8.73797 7.68645 8.73797 6.40717 7.96414 5.62538ZM3.74324 9.88965C2.9694 9.10787 1.70313 9.10787 0.9293 9.88965C0.155467 10.6714 0.155468 11.9507 0.9293 12.7325C1.70313 13.5143 2.9694 13.5143 3.74324 12.7325C4.51707 11.9507 4.51707 10.6714 3.74324 9.88965Z"
@@ -213,14 +219,38 @@ const DashboardCard = () => {
         </svg>
       </div>
 
-      <div ref={menuRef} className={`${styles.menu} ${isMenuOpen ? styles.active : ''}`}>
-        <svg width="130" height="138" viewBox="0 0 130 138" fill="none" className="absolute inset-0" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7.19568 25.6599L24.6382 7.592L99.1228 7.59195V12.4287H122.223V112.792L104.781 130.247H10.6375V121.221V97.1021H7.19568V25.6599Z" fill={`url(#${gradientId})`}/>
-          <path d="M127.789 1.55734V117.561L109.084 136.281H1.62976V20.9499L20.3524 1.55734H127.789Z" stroke="#02979A" stroke-width="3"/>
+      <div
+        ref={menuRef}
+        className={`${styles.menu} ${isMenuOpen ? styles.active : ''}`}
+      >
+        <svg
+          width="130"
+          height="138"
+          viewBox="0 0 130 138"
+          fill="none"
+          className="absolute inset-0"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.19568 25.6599L24.6382 7.592L99.1228 7.59195V12.4287H122.223V112.792L104.781 130.247H10.6375V121.221V97.1021H7.19568V25.6599Z"
+            fill={`url(#${gradientId})`}
+          />
+          <path
+            d="M127.789 1.55734V117.561L109.084 136.281H1.62976V20.9499L20.3524 1.55734H127.789Z"
+            stroke="#02979A"
+            strokeWidth="3"
+          />
           <defs>
-            <linearGradient id={gradientId} x1="100.837" y1="-5.27602" x2="-31.5725" y2="179.546" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#049FA2"/>
-              <stop offset="1" stop-color="#013B3C"/>
+            <linearGradient
+              id={gradientId}
+              x1="100.837"
+              y1="-5.27602"
+              x2="-31.5725"
+              y2="179.546"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#049FA2" />
+              <stop offset="1" stopColor="#013B3C" />
             </linearGradient>
           </defs>
         </svg>
