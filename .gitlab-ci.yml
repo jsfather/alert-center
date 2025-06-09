@@ -1,0 +1,42 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  tags:
+    - builder
+  before_script:
+    - echo "$HARBOR_PASSWORD" | docker login --password-stdin --username "$HARBOR_USER" -- "$HARBOR_REGISTRY"
+  script:
+    - docker build --network host -t $HARBOR_REGISTRY/analytics-team/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA -f Dockerfile .
+    - docker push $HARBOR_REGISTRY/analytics-team/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+  when: manual
+
+
+.deploy_script:
+  script: &deploy_script
+      helm upgrade
+      --namespace=analytics-team
+      --set image.repository=$HARBOR_REGISTRY/analytics-team/$CI_PROJECT_NAME
+      --set image.tag=$CI_COMMIT_SHORT_SHA
+      --set imagePullSecrets[0].name=harbor-auth
+      --set service.port=8000
+      --set ingress.enabled=true
+      --set ingress.hosts[0].host=api.synappse.ir
+      --set "ingress.hosts[0].paths[0].path=/api/category-ident(/|$)(.*)"
+      --set ingress.hosts[0].paths[0].pathType=ImplementationSpecific
+      --set ingress.annotations."nginx\.ingress\.kubernetes\.io/rewrite-target"="/\$2"
+      --set resources.limits."nvidia\.com/gpu"="1"
+      --set resources.requests."nvidia\.com/gpu"="1"
+      --force
+      --install
+      $CI_PROJECT_NAME
+      oci://harbor.synappse.ir/infra/deploy
+
+deploy:
+  stage: deploy
+  tags:
+    - builder
+  script: *deploy_script
+  when: manual
