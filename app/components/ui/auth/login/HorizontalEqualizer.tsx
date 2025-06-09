@@ -21,7 +21,7 @@ const HorizontalEqualizer: React.FC<HorizontalEqualizerProps> = ({
   useEffect(() => {
     const newStyles = Array.from({ length: barCount }, () => {
       const delay = Math.random() * 2;
-      const duration = Math.random() * 1.4 + 1.8;
+      const duration = Math.random() * 3.4 + 3.8;
 
       return {
         animationDelay: `${delay}s`,

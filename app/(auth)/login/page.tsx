@@ -54,7 +54,7 @@ export default function Page() {
                   className="h-[137px] w-[137px]"
                   priority
                 />
-                <div className="h-[110px] w-[417px]">
+                <div className="h-[75px] w-[417px] ">
                   <HorizontalEqualizer />
                 </div>
               </div>

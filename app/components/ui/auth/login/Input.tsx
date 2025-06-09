@@ -31,7 +31,7 @@ export default function Input(props: InputProps) {
             props.error,
           'focus-within:border-primary-500 focus-within:ring-primary-500':
             !props.error,
-        })} flex items-center rounded-lg border border-gray-600 bg-gray-700 focus-within:ring-2`}
+        })} flex items-center rounded-lg border border-gray-600 bg-black/50 focus-within:ring-2`}
       >
         {props.prependIcon && (
           <span className="flex items-center pr-3 text-gray-300">
