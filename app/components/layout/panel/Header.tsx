@@ -2,14 +2,25 @@
 
 import Image from 'next/image';
 import { BellAlertIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { cn } from '@/app/lib/utils';
 
-export default function Header() {
+interface HeaderProps {
+  className?: string;
+}
+
+export default function Header({ className }: HeaderProps) {
   const hasProfileImage = false;
 
   return (
-    <header className="flex h-[82px] items-center justify-end gap-4 border-b border-neutral-800 bg-neutral-900 px-6">
+    <header
+      className={cn(
+        'flex h-[82px] items-center justify-end gap-4 border-b border-neutral-800 bg-neutral-900 px-6',
+        'lg:pl-6',
+        className
+      )}
+    >
       <div className="flex items-center gap-3">
-        <div className="flex flex-col items-end">
+        <div className="hidden flex-col items-end sm:flex">
           <span className="text-sm text-white">Admin</span>
           <span className="text-xs text-neutral-400">admin@hoshdar.fa</span>
         </div>

@@ -2,8 +2,11 @@
 
 import DashboardButton from '@/app/components/ui/panel/dashboard/DashboardButton';
 import { PlusSquare } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const DashboardCard = () => {
+  const router = useRouter();
+
   return (
     <div className="relative h-[228px] w-[368px]">
       <div className="flex h-full flex-col items-center justify-center">
@@ -16,6 +19,7 @@ const DashboardCard = () => {
         <DashboardButton
           title="ایجاد داشبورد"
           className="mt-[15px]"
+          onClick={() => router.push('/dashboard/create')}
           prepend={<PlusSquare size={20} />}
         />
       </div>

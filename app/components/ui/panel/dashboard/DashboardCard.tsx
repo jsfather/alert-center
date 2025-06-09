@@ -11,22 +11,26 @@ import Image from 'next/image';
 import styles from './DashboardCard.module.css';
 import { useState, useEffect, useRef } from 'react';
 
-// Props interface for DashboardMenu
-interface DashboardMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onMenuItemClick: (action: string) => void;
+interface DashboardCardProps {
+  index?: number;
 }
 
-// Separate client component for the menu
-const DashboardMenu = ({ isOpen, onClose, onMenuItemClick }: DashboardMenuProps) => {
+const DashboardCard = ({ index = 0 }: DashboardCardProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const gradientId = 'paint0_linear_menu';
+  const buttonRef = useRef<SVGGElement>(null);
+  // Use a stable ID based on the card's index
+  const gradientId = `paint0_linear_menu_${index}`;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        onClose();
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
       }
     };
 
@@ -34,53 +38,7 @@ const DashboardMenu = ({ isOpen, onClose, onMenuItemClick }: DashboardMenuProps)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [onClose]);
-
-  return (
-    <div ref={menuRef} className={`${styles.menu} ${isOpen ? styles.active : ''}`}>
-      <svg
-        width="130"
-        height="138"
-        viewBox="0 0 130 138"
-        fill="none"
-        className="absolute inset-0"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M7.19568 25.6599L24.6382 7.592L99.1228 7.59195V12.4287H122.223V112.792L104.781 130.247H10.6375V121.221V97.1021H7.19568V25.6599Z"
-          fill={`url(#${gradientId})`}
-        />
-        <path
-          d="M127.789 1.55734V117.561L109.084 136.281H1.62976V20.9499L20.3524 1.55734H127.789Z"
-          stroke="#02979A"
-          strokeWidth="3"
-        />
-        <defs>
-          <linearGradient
-            id={gradientId}
-            x1="100.837"
-            y1="-5.27602"
-            x2="-31.5725"
-            y2="179.546"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#049FA2" />
-            <stop offset="1" stopColor="#013B3C" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <div className={styles.menuContent}>
-        <p onClick={() => onMenuItemClick('archive')}>ارسال به آرشیو</p>
-        <p onClick={() => onMenuItemClick('edit')}>ویرایش داشبورد</p>
-        <p onClick={() => onMenuItemClick('delete')}>حذف داشبورد</p>
-      </div>
-    </div>
-  );
-};
-
-const DashboardCard = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const buttonRef = useRef<SVGGElement>(null);
+  }, []);
 
   const handleMenuClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -265,11 +223,47 @@ const DashboardCard = () => {
         </svg>
       </div>
 
-      <DashboardMenu
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        onMenuItemClick={handleMenuItemClick}
-      />
+      <div
+        ref={menuRef}
+        className={`${styles.menu} ${isMenuOpen ? styles.active : ''}`}
+      >
+        <svg
+          width="130"
+          height="138"
+          viewBox="0 0 130 138"
+          fill="none"
+          className="absolute inset-0"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.19568 25.6599L24.6382 7.592L99.1228 7.59195V12.4287H122.223V112.792L104.781 130.247H10.6375V121.221V97.1021H7.19568V25.6599Z"
+            fill={`url(#${gradientId})`}
+          />
+          <path
+            d="M127.789 1.55734V117.561L109.084 136.281H1.62976V20.9499L20.3524 1.55734H127.789Z"
+            stroke="#02979A"
+            strokeWidth="3"
+          />
+          <defs>
+            <linearGradient
+              id={gradientId}
+              x1="100.837"
+              y1="-5.27602"
+              x2="-31.5725"
+              y2="179.546"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#049FA2" />
+              <stop offset="1" stopColor="#013B3C" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div className={styles.menuContent}>
+          <p onClick={() => handleMenuItemClick('archive')}>ارسال به آرشیو</p>
+          <p onClick={() => handleMenuItemClick('edit')}>ویرایش داشبورد</p>
+          <p onClick={() => handleMenuItemClick('delete')}>حذف داشبورد</p>
+        </div>
+      </div>
     </div>
   );
 };
