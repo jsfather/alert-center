@@ -2,8 +2,9 @@
 
 import Stepper from '@/app/components/ui/Stepper';
 import { useState } from 'react';
+import Breadcrumb from '@/app/components/ui/Breadcrumb';
 
-export default function Page() {
+export default function CreateDashboard() {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -21,9 +22,15 @@ export default function Page() {
     },
   ];
 
+  const breadcrumbItems = [
+    { label: 'خانه', href: '/dashboard' },
+    { label: 'ایجاد داشبورد جدید' },
+  ];
+
   return (
-    <div className='flex flex-col  items-center'>
-      <h1 className="text-3xl font-bold text-white">ایجاد داشبورد جدید</h1>
+    <div className="p-8">
+      <Breadcrumb items={breadcrumbItems} />
+      <h1 className="mt-8 text-2xl font-bold">ایجاد داشبورد جدید</h1>
       <Stepper steps={steps} currentStep={currentStep} />
 
       <div className="flex gap-4">
