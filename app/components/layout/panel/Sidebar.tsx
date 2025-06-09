@@ -83,10 +83,10 @@ export default function Sidebar() {
           !isOpen && 'translate-x-full lg:translate-x-0'
         )}
       >
-        <div className="flex h-[82px] items-center gap-3 px-6">
+        <Link href="/" className="flex h-[82px] items-center gap-3 px-6">
           <Image src="/logo.svg" alt="Logo" width={32} height={32} />
           <h1 className="text-xl font-bold">مرکز هشدار ایران</h1>
-        </div>
+        </Link>
 
         <nav className="flex-1 p-4">
           <ul className="space-y-2">
