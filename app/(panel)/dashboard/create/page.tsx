@@ -23,33 +23,37 @@ export default function CreateDashboard() {
   ];
 
   const breadcrumbItems = [
-    { label: 'خانه', href: '/dashboard' },
+    { label: 'داشبورد', href: '/dashboard' },
     { label: 'ایجاد داشبورد جدید' },
   ];
 
   return (
-    <div className="p-8">
+    <div>
       <Breadcrumb items={breadcrumbItems} />
-      <h1 className="mt-8 text-2xl font-bold">ایجاد داشبورد جدید</h1>
-      <Stepper steps={steps} currentStep={currentStep} />
+      <div className="flex flex-col items-center">
+        <h1 className="mt-8 text-4xl font-bold text-white">ایجاد داشبورد جدید</h1>
+        <div className="my-4 h-[2px] w-1/12 bg-gray-300"></div>
 
-      <div className="flex gap-4">
-        <button
-          onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
-          disabled={currentStep === 0}
-          className="rounded-lg bg-neutral-800 px-4 py-2 text-sm text-white transition-colors hover:bg-neutral-700 disabled:opacity-50"
-        >
-          قبلی
-        </button>
-        <button
-          onClick={() =>
-            setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))
-          }
-          disabled={currentStep === steps.length - 1}
-          className="bg-primary-500 hover:bg-primary-600 rounded-lg px-4 py-2 text-sm text-white transition-colors disabled:opacity-50"
-        >
-          بعدی
-        </button>
+        <Stepper steps={steps} currentStep={currentStep} />
+
+        <div className="flex gap-4">
+          <button
+            onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
+            disabled={currentStep === 0}
+            className="rounded-lg bg-neutral-800 px-4 py-2 text-sm text-white transition-colors hover:bg-neutral-700 disabled:opacity-50"
+          >
+            قبلی
+          </button>
+          <button
+            onClick={() =>
+              setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))
+            }
+            disabled={currentStep === steps.length - 1}
+            className="bg-primary-500 hover:bg-primary-600 rounded-lg px-4 py-2 text-sm text-white transition-colors disabled:opacity-50"
+          >
+            بعدی
+          </button>
+        </div>
       </div>
     </div>
   );

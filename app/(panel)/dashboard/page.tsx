@@ -3,8 +3,8 @@ import CreateDashboardCard from '@/app/components/ui/panel/dashboard/CreateDashb
 
 export default function Page() {
   return (
-    <div className="text-red-50">
-      <div className="grid grid-cols-4 gap-8">
+    <div>
+      <div className="mt-8 grid grid-cols-4 gap-8 text-white">
         <CreateDashboardCard />
         {Array.from({ length: 11 }, (_, i) => (
           <DashboardCard key={i} index={i} />

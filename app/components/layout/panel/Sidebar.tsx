@@ -13,11 +13,11 @@ import {
 import Image from 'next/image';
 
 const menuItems = [
-  { name: 'صفحه اصلی', icon: RectangleGroupIcon, href: '/dashboard' },
-  { name: 'پروفایل کاربری', icon: UsersIcon, href: '/profile' },
-  { name: 'تنظیمات', icon: Cog6ToothIcon, href: '/settings' },
-  { name: 'هشدارها', icon: BellAlertIcon, href: '/alerts' },
-  { name: 'کمک', icon: QuestionMarkCircleIcon, href: '/help' },
+  { name: 'داشبورد', icon: RectangleGroupIcon, href: '/dashboard' },
+  { name: 'پروفایل کاربری', icon: UsersIcon, href: '' },
+  { name: 'تنظیمات', icon: Cog6ToothIcon, href: '' },
+  { name: 'هشدارها', icon: BellAlertIcon, href: '' },
+  { name: 'کمک', icon: QuestionMarkCircleIcon, href: '' },
 ];
 
 export default function Sidebar() {
