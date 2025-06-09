@@ -11,12 +11,16 @@ import Image from 'next/image';
 import styles from './DashboardCard.module.css';
 import { useState, useEffect, useRef } from 'react';
 
-const DashboardCard = () => {
+interface DashboardCardProps {
+  index?: number;
+}
+
+const DashboardCard = ({ index = 0 }: DashboardCardProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<SVGGElement>(null);
-  // Generate a unique ID for the gradient
-  const gradientId = `paint0_linear_menu_${Math.random().toString(36).substr(2, 9)}`;
+  // Use a stable ID based on the card's index
+  const gradientId = `paint0_linear_menu_${index}`;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
