@@ -4,7 +4,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Image from 'next/image';
 import SparklineDots from '@/app/components/ui/auth/login/SparklineDots';
 import BottomEqualizer from '@/app/components/ui/auth/login/BottomEqualizer';
-import Input from '@/app/components/ui/Input';
+import Input from '@/app/components/ui/auth/login/Input';
 import React, { useState, useEffect } from 'react';
 import { LockKeyholeOpen, UserSquare2 } from 'lucide-react';
 import CircularProgress from '@/app/components/ui/auth/login/CircularProgress';
