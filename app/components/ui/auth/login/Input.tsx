@@ -21,7 +21,7 @@ export default function Input(props: InputProps) {
     <div className="w-full">
       <label
         htmlFor={props.id}
-        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        className="mb-2 block text-sm font-medium text-white"
       >
         {props.label}
       </label>
@@ -29,12 +29,12 @@ export default function Input(props: InputProps) {
         className={`${clsx({
           'border-red-400 ring-2 ring-red-300 focus-within:border-red-400 focus-within:ring-red-400':
             props.error,
-          'focus-within:ring-primary-500 focus-within:border-primary-500 dark:focus-within:border-primary-500 dark:focus-within:ring-primary-500':
+          'focus-within:border-primary-500 focus-within:ring-primary-500':
             !props.error,
-        })} flex items-center rounded-lg border border-gray-300 bg-gray-50 focus-within:ring-2 dark:border-gray-600 dark:bg-gray-700`}
+        })} flex items-center rounded-lg border border-gray-600 bg-gray-700 focus-within:ring-2`}
       >
         {props.prependIcon && (
-          <span className="flex items-center pr-3 text-gray-400 dark:text-gray-300">
+          <span className="flex items-center pr-3 text-gray-300">
             {props.prependIcon}
           </span>
         )}
@@ -44,11 +44,11 @@ export default function Input(props: InputProps) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={props.placeholder}
-          className="block w-full bg-transparent p-2.5 text-sm text-gray-900 focus:outline-none dark:text-white dark:placeholder-gray-400"
+          className="block w-full bg-transparent p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none"
         />
         {props.type === 'password' && (
           <button
-            className="flex cursor-pointer items-center pl-3 text-gray-400 dark:text-gray-400"
+            className="flex cursor-pointer items-center pl-3 text-gray-400"
             onClick={() => setEye(!eye)}
           >
             {eye ? <Eye /> : <EyeClosed />}
