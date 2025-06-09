@@ -3,18 +3,18 @@
 import Header from '@/app/components/layout/panel/Header';
 import Sidebar from '@/app/components/layout/panel/Sidebar';
 
-export default function Layout({
+export default function PanelLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex flex-1 flex-col">
+    <div className="flex min-h-screen bg-neutral-800">
+      <div className="flex w-full flex-col lg:mr-64">
         <Header />
-        <main className="flex-1 overflow-auto bg-neutral-800 px-10 py-6">
-          {children}
-        </main>
+        <main className="flex-1 p-8">{children}</main>
       </div>
+      <Sidebar />
     </div>
   );
 }
