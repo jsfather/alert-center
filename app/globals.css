@@ -5,6 +5,7 @@
 }
 
 @theme {
+  --color-primary-400: #5BF7FA;
   --color-primary-500: #05a0a3;
   --font-dana: var(--font-dana);
   --font-dana-fanum: var(--font-dana-fanum);

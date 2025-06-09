@@ -26,19 +26,17 @@ const Stepper = ({ steps, currentStep, className }: StepperProps) => {
               <div
                 className={cn(
                   'h-[1px] w-24 transition-colors duration-200',
-                  isCompleted ? 'bg-primary-500' : 'bg-neutral-700'
+                  isCompleted || isActive ? 'bg-primary-500' : 'bg-neutral-700'
                 )}
               />
             )}
             <div className="flex flex-col items-center">
               <div
                 className={cn(
-                  'flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm transition-colors duration-200',
-                  isActive
-                    ? 'border-primary-500 bg-primary-500 text-white'
-                    : isCompleted
-                    ? 'border-primary-500 bg-primary-500/10 text-primary-500'
-                    : 'border-neutral-700 bg-neutral-700/10 text-neutral-700'
+                  'flex h-8 w-8 items-center font-bold justify-center rounded-full border-2 text-sm transition-colors duration-200',
+                  isActive || isCompleted
+                    ? 'border-primary-400 bg-primary-500 text-white'
+                    : 'border-stone-600 bg-neutral-700/10 text-stone-400'
                 )}
               >
                 {index + 1}
@@ -46,7 +44,7 @@ const Stepper = ({ steps, currentStep, className }: StepperProps) => {
               <div
                 className={cn(
                   'mt-2 whitespace-nowrap text-xs transition-colors duration-200',
-                  isActive || isCompleted ? 'text-primary-500' : 'text-neutral-700'
+                  isActive || isCompleted ? 'text-primary-400' : 'text-stone-400'
                 )}
               >
                 {step.title}

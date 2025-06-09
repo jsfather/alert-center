@@ -10,15 +10,9 @@ export default function CreateDashboard() {
   const steps = [
     {
       title: 'عنوان داشبورد',
-      description: 'پیکربندی و تنظیم',
     },
     {
-      title: 'انتخاب منابع',
-      description: 'تنظیم منابع داده',
-    },
-    {
-      title: 'تنظیمات نهایی',
-      description: 'بررسی و تایید',
+      title: 'پیکربندی و تایید',
     },
   ];
 
@@ -34,26 +28,8 @@ export default function CreateDashboard() {
         <h1 className="mt-8 text-4xl font-bold text-white">ایجاد داشبورد جدید</h1>
         <div className="my-4 h-[2px] w-1/12 bg-gray-300"></div>
 
-        <Stepper steps={steps} currentStep={currentStep} />
+        <Stepper steps={steps} currentStep={currentStep} className="mt-8" />
 
-        <div className="flex gap-4">
-          <button
-            onClick={() => setCurrentStep((prev) => Math.max(0, prev - 1))}
-            disabled={currentStep === 0}
-            className="rounded-lg bg-neutral-800 px-4 py-2 text-sm text-white transition-colors hover:bg-neutral-700 disabled:opacity-50"
-          >
-            قبلی
-          </button>
-          <button
-            onClick={() =>
-              setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1))
-            }
-            disabled={currentStep === steps.length - 1}
-            className="bg-primary-500 hover:bg-primary-600 rounded-lg px-4 py-2 text-sm text-white transition-colors disabled:opacity-50"
-          >
-            بعدی
-          </button>
-        </div>
       </div>
     </div>
   );
