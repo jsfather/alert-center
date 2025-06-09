@@ -36,14 +36,14 @@ export default function Page() {
     <>
       {isLoading && <LoadingScreen />}
 
-      <div className="flex justify-center">
+      <div className="fixed inset-0 flex justify-center">
         <div
-          className={`bg-dotted relative h-[900px] w-full max-w-[2000px] transition-opacity duration-1000 ${
+          className={`bg-dotted relative h-full w-full max-w-[2000px] transition-opacity duration-1000 ${
             isLoading ? 'opacity-0' : 'opacity-100'
           }`}
         >
           {/* Right Section - Hidden on mobile */}
-          <div className="hidden lg:block lg:absolute lg:right-0 lg:top-0 lg:h-full lg:w-1/3 lg:overflow-hidden">
+          <div className="hidden lg:block lg:absolute lg:right-0 lg:top-0 lg:h-[900px] lg:w-1/3 lg:overflow-hidden">
             <div className="flex h-full flex-col items-center">
               <div className="flex flex-row justify-center items-center px-4">
                 <Image
@@ -116,7 +116,7 @@ export default function Page() {
           </div>
 
           {/* Center Section - Login Form */}
-          <div className="flex h-full flex-col items-center pt-10 px-4 lg:absolute lg:right-1/3 lg:w-1/3">
+          <div className="flex h-full flex-col items-center pt-10 px-4 lg:absolute lg:right-1/3 lg:w-1/3 lg:h-[900px]">
             <div className="flex flex-col items-center">
               <DotLottieReact
                 src="/lottie/globe.json"
@@ -150,7 +150,7 @@ export default function Page() {
           </div>
 
           {/* Left Section - Hidden on mobile */}
-          <div className="hidden lg:block lg:absolute lg:left-0 lg:top-0 lg:h-full lg:w-1/3 lg:overflow-hidden">
+          <div className="hidden lg:block lg:absolute lg:left-0 lg:top-0 lg:h-[900px] lg:w-1/3 lg:overflow-hidden">
             <div className="flex h-full flex-col items-center">
               <DotLottieReact
                 src="/lottie/iran-map.json"
@@ -219,12 +219,12 @@ export default function Page() {
               </div>
             </div>
           </div>
-
-          {/* Bottom Equalizer - Always visible */}
-          <div className="absolute bottom-0 left-0 right-0">
-            <BottomEqualizer />
-          </div>
         </div>
+      </div>
+
+      {/* Bottom Equalizer - Always fixed */}
+      <div className="sm:fixed bottom-0 left-0 right-0 z-50 pointer-events-none absolute">
+        <BottomEqualizer />
       </div>
     </>
   );
