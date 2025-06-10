@@ -6,13 +6,29 @@ import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import TextField from '@/app/components/ui/TextField';
 import TextArea from '@/app/components/ui/TextArea';
 import Button from '@/app/components/ui/Button';
+import Select from '@/app/components/ui/Select';
+import DateTimePicker from '@/app/components/ui/DateTimePicker';
+import { cn } from '@/app/lib/utils';
 import { FileText } from 'lucide-react';
+import {
+  TelegramLogoIcon,
+  InstagramLogoIcon,
+  TwitterLogoIcon,
+  YoutubeLogoIcon,
+} from '@phosphor-icons/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CreateDashboard() {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedSocials, setSelectedSocials] = useState<number[]>([]);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
+    startDate: '',
+    endDate: '',
+    updateInterval: '',
+    keywords: [] as string[],
+    hashtags: [] as string[],
   });
 
   const steps = [
@@ -29,10 +45,26 @@ export default function CreateDashboard() {
     { label: 'ایجاد داشبورد جدید' },
   ];
 
+  const updateIntervalOptions = [
+    { value: '1h', label: 'هر یک ساعت' },
+    { value: '2h', label: 'هر دو ساعت' },
+    { value: '6h', label: 'هر شش ساعت' },
+    { value: '12h', label: 'هر دوازده ساعت' },
+    { value: '24h', label: 'هر بیست و چهار ساعت' },
+  ];
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDateChange = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSelectChange = (name: string, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -44,10 +76,44 @@ export default function CreateDashboard() {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
+  type SocialItem = {
+    id: number;
+    title: string;
+    description: string;
+    icon: React.ComponentType<{ size: number; className: string }>;
+  };
+
+  const socialItems: SocialItem[] = [
+    {
+      id: 1,
+      title: 'تلگرام',
+      description: 'تحلیل داده‌هـای\n' + 'پیام رسان تلگرام',
+      icon: TelegramLogoIcon,
+    },
+    {
+      id: 2,
+      title: 'اینستاگرام',
+      description: 'تحلیل داده‌های \n' + '  اینستاگرام',
+      icon: InstagramLogoIcon,
+    },
+    {
+      id: 3,
+      title: 'توییتر',
+      description: 'تحلیل داده‌های توییتر  (X)',
+      icon: TwitterLogoIcon,
+    },
+    {
+      id: 4,
+      title: 'یوتوب',
+      description: 'تحلیل داده‌های یوتوب',
+      icon: YoutubeLogoIcon,
+    },
+  ];
+
   return (
-    <div>
+    <div className="min-h-screen bg-neutral-800">
       <Breadcrumb items={breadcrumbItems} />
-      <div className="flex flex-col items-center">
+      <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl flex-col items-center px-4 pb-8">
         <h1 className="mt-8 text-4xl font-bold text-white">
           ایجاد داشبورد جدید
         </h1>
@@ -55,78 +121,178 @@ export default function CreateDashboard() {
 
         <Stepper steps={steps} currentStep={currentStep} className="mt-8" />
 
-        <div className="mt-8 w-full max-w-2xl">
-          {currentStep === 0 && (
-            <div className="space-y-6">
-              <div className="text-white font-medium text-lg">اطلاعات پایه</div>
-              <TextField
-                label="عنوان داشبورد"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                placeholder="عنوان داشبورد را وارد کنید"
-              />
-              <TextArea
-                label="توضیحات"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="متن مورد نظر خود را بنویسید"
-              />
-              <div className="flex gap-2">
-                <Button
-                  variant="secondary"
-                  onClick={() => window.history.back()}
-                  disabled
-                >
-                  قبلی
-                </Button>
-                <div className="flex-grow"></div>
-                <Button
-                  variant="secondary"
-                  onClick={() => window.history.back()}
-                >
-                  انصراف
-                </Button>
-                <Button
-                  onClick={handleNext}
-                  icon={<FileText className="h-4 w-4" />}
-                  iconPosition="start"
-                >
-                  ثبت و ادامه
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
+        <div className="relative mt-8 w-full">
+          <AnimatePresence mode="wait">
+            {currentStep === 0 && (
+              <motion.div
+                key="step1"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 mx-auto w-full max-w-2xl space-y-6"
+              >
+                <div className="text-lg font-medium text-white">
+                  اطلاعات پایه
+                </div>
+                <TextField
+                  label="عنوان داشبورد"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  placeholder="عنوان داشبورد را وارد کنید"
+                />
+                <TextArea
+                  label="توضیحات"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="متن مورد نظر خود را بنویسید"
+                />
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <Button
+                    variant="secondary"
+                    onClick={() => window.history.back()}
+                    disabled
+                  >
+                    قبلی
+                  </Button>
+                  <div className="flex-grow"></div>
+                  <Button
+                    variant="secondary"
+                    onClick={() => window.history.back()}
+                  >
+                    انصراف
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    icon={<FileText className="h-4 w-4" />}
+                    iconPosition="start"
+                  >
+                    ثبت و ادامه
+                  </Button>
+                </div>
+              </motion.div>
+            )}
 
-        <div className="mt-8 w-full max-w-2xl">
-          {currentStep === 1 && (
-            <div className="space-y-6">
-              <div className="flex gap-2">
-                <Button
-                  variant="secondary"
-                  onClick={handleBack}
-                >
-                  قبلی
-                </Button>
-                <div className="flex-grow"></div>
-                <Button
-                  variant="secondary"
-                  onClick={() => window.history.back()}
-                >
-                  انصراف
-                </Button>
-                <Button
-                  icon={<FileText className="h-4 w-4" />}
-                  iconPosition="start"
-                  disabled
-                >
-                  ایجاد گزارش
-                </Button>
-              </div>
-            </div>
-          )}
+            {currentStep === 1 && (
+              <motion.div
+                key="step2"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 mx-auto w-full max-w-4xl space-y-6"
+              >
+                <div className="text-lg font-medium text-stone-400">
+                  بستر‌های مورد نظر خود را انتخاب کنید
+                </div>
+                <div className="flex w-full flex-wrap justify-center gap-5">
+                  {socialItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={item.id}
+                        className={cn(
+                          'flex h-[175px] w-[175px] shrink-0 cursor-pointer flex-col items-center justify-between rounded-lg border-2 bg-neutral-900 p-6 text-center shadow-lg transition-colors select-none sm:w-[calc(50%-0.625rem)] md:w-[175px]',
+                          selectedSocials.indexOf(item.id) === -1
+                            ? 'border-neutral-700'
+                            : 'border-primary-400'
+                        )}
+                        onClick={() =>
+                          setSelectedSocials((prev) =>
+                            prev.includes(item.id)
+                              ? prev.filter(
+                                  (socialItem) => socialItem !== item.id
+                                )
+                              : [...prev, item.id]
+                          )
+                        }
+                      >
+                        <Icon size={46} className="fill-primary-400" />
+                        <div className="text-lg font-bold text-white">
+                          {item.title}
+                        </div>
+                        <div className="text-sm font-bold text-neutral-500">
+                          {item.description}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="h-[1px] bg-neutral-700"></div>
+
+                <div className="text-lg font-medium text-stone-400">
+                  پیکربندی گزارش
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  <DateTimePicker
+                    label="تاریخ و زمان شروع"
+                    value={formData.startDate}
+                    onChange={(value) => handleDateChange('startDate', value)}
+                  />
+                  <DateTimePicker
+                    label="تاریخ و زمان پایان"
+                    value={formData.endDate}
+                    onChange={(value) => handleDateChange('endDate', value)}
+                  />
+                  <Select
+                    label="وقفه زمانی به‌روزرسانی گزارش‌ها"
+                    options={updateIntervalOptions}
+                    value={formData.updateInterval}
+                    onChange={(value) =>
+                      handleSelectChange('updateInterval', value)
+                    }
+                  />
+                </div>
+
+                <Select
+                  label="کلمات کلیدی"
+                  options={[]}
+                  value={formData.keywords}
+                  onChange={(value) => handleSelectChange('keywords', value)}
+                  multiple
+                  placeholder="کلمات کلیدی را وارد کنید"
+                />
+
+                <Select
+                  label="هشتگ‌ها"
+                  options={[]}
+                  value={formData.hashtags}
+                  onChange={(value) => handleSelectChange('hashtags', value)}
+                  multiple
+                  placeholder="هشتگ‌ها را وارد کنید"
+                />
+
+                <div className="h-[1px] bg-neutral-700"></div>
+
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <Button variant="secondary" onClick={handleBack}>
+                    قبلی
+                  </Button>
+                  <div className="flex-grow"></div>
+                  <Button
+                    variant="secondary"
+                    onClick={() => window.history.back()}
+                  >
+                    انصراف
+                  </Button>
+                  <Button
+                    icon={<FileText className="h-4 w-4" />}
+                    iconPosition="start"
+                    disabled={
+                      !formData.updateInterval ||
+                      !formData.startDate ||
+                      !formData.endDate
+                    }
+                  >
+                    ایجاد گزارش
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
