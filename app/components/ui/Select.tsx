@@ -69,19 +69,19 @@ const Select = ({
   };
 
   return (
-    <div className={cn('w-full', className)} ref={selectRef}>
+    <div className={cn('w-full relative', className)} ref={selectRef}>
       <label className="mb-2 block text-sm font-medium text-stone-400">
         {label}
       </label>
       <div
         className={cn(
-          'relative w-full cursor-pointer rounded-md border bg-neutral-800/50 px-4 py-2.5 text-sm text-white',
+          'relative w-full cursor-pointer bg-[#3b3b3b] rounded-sm border h-[55px] px-4 pt-3.5 font-light pb-1  text-white',
           'focus:border-primary-500 focus:ring-primary-500 border-stone-600 focus:shadow-sm focus:ring-1 focus:shadow-primary-400',
           error && 'border-red-500 focus:border-red-500 focus:ring-red-500'
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex min-h-[1.5rem] flex-wrap gap-2">
+        <div className="flex w-full min-h-[1.5rem] flex-wrap gap-2">
           {multiple && Array.isArray(value) && value.length > 0 ? (
             value.map((v) => {
               const option = options.find((opt) => opt.value === v);
@@ -119,7 +119,7 @@ const Select = ({
         />
       </div>
       {isOpen && (
-        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border-stone-600 bg-neutral-800 py-1 shadow-lg">
+        <div className="absolute z-50 mt-1 max-h-72 right-0 left-0 overflow-auto rounded-sm border border-stone-600 bg-[#3b3b3b] py-1 shadow-lg">
           {options.map((option) => {
             const isSelected = multiple
               ? Array.isArray(value) && value.includes(option.value)
@@ -128,7 +128,7 @@ const Select = ({
               <div
                 key={option.value}
                 className={cn(
-                  'cursor-pointer px-4 py-2 text-sm text-white hover:bg-neutral-700',
+                  'cursor-pointer p-3.5 text-sm text-white hover:bg-neutral-700',
                   isSelected && 'bg-primary-500/20 text-primary-400'
                 )}
                 onClick={() => handleSelect(option.value)}
