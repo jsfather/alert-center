@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CreateDashboard() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedSocials, setSelectedSocials] = useState<number[]>([]);
+  const [selectedSocials, setSelectedSocials] = useState<number[]>([1]);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -51,6 +51,28 @@ export default function CreateDashboard() {
     { value: '6h', label: 'هر شش ساعت' },
     { value: '12h', label: 'هر دوازده ساعت' },
     { value: '24h', label: 'هر بیست و چهار ساعت' },
+  ];
+
+  const keywordOptions = [
+    { value: 'politics', label: 'سیاست' },
+    { value: 'economy', label: 'اقتصاد' },
+    { value: 'technology', label: 'تکنولوژی' },
+    { value: 'sports', label: 'ورزش' },
+    { value: 'entertainment', label: 'سرگرمی' },
+    { value: 'health', label: 'سلامت' },
+    { value: 'education', label: 'آموزش' },
+    { value: 'science', label: 'علم' },
+  ];
+
+  const hashtagOptions = [
+    { value: 'iran', label: '#ایران' },
+    { value: 'tech', label: '#تکنولوژی' },
+    { value: 'news', label: '#اخبار' },
+    { value: 'crypto', label: '#ارز_دیجیتال' },
+    { value: 'startup', label: '#استارتاپ' },
+    { value: 'ai', label: '#هوش_مصنوعی' },
+    { value: 'business', label: '#کسب_و_کار' },
+    { value: 'digital', label: '#دیجیتال' },
   ];
 
   const handleChange = (
@@ -111,17 +133,17 @@ export default function CreateDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-800">
+    <div className="min-h-full p-8">
       <Breadcrumb items={breadcrumbItems} />
-      <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl flex-col items-center px-4 pb-8">
-        <h1 className="mt-8 text-4xl font-bold text-white">
+      <div className="mx-auto w-full flex flex-col items-center mt-8 max-w-7xl">
+        <h1 className="text-4xl font-bold text-white">
           ایجاد داشبورد جدید
         </h1>
         <div className="my-4 h-[2px] w-1/12 bg-gray-300"></div>
 
         <Stepper steps={steps} currentStep={currentStep} className="mt-8" />
 
-        <div className="relative mt-8 w-full">
+        <div className="relative mt-8 w-full pb-8">
           <AnimatePresence mode="wait">
             {currentStep === 0 && (
               <motion.div
@@ -130,7 +152,7 @@ export default function CreateDashboard() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3 }}
-                className="absolute inset-0 mx-auto w-full max-w-2xl space-y-6"
+                className="mx-auto w-full max-w-2xl space-y-6"
               >
                 <div className="text-lg font-medium text-white">
                   اطلاعات پایه
@@ -182,7 +204,7 @@ export default function CreateDashboard() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.3 }}
-                className="absolute inset-0 mx-auto w-full max-w-4xl space-y-6"
+                className="mx-auto w-full max-w-4xl space-y-6"
               >
                 <div className="text-lg font-medium text-stone-400">
                   بستر‌های مورد نظر خود را انتخاب کنید
@@ -199,7 +221,10 @@ export default function CreateDashboard() {
                             ? 'border-neutral-700'
                             : 'border-primary-400'
                         )}
-                        onClick={() =>
+                        onClick={() => {
+                          if (selectedSocials.length === 1 && selectedSocials.includes(item.id)) {
+                            return;
+                          }
                           setSelectedSocials((prev) =>
                             prev.includes(item.id)
                               ? prev.filter(
@@ -207,7 +232,7 @@ export default function CreateDashboard() {
                                 )
                               : [...prev, item.id]
                           )
-                        }
+                        }}
                       >
                         <Icon size={46} className="fill-primary-400" />
                         <div className="text-lg font-bold text-white">
@@ -249,7 +274,7 @@ export default function CreateDashboard() {
 
                 <Select
                   label="کلمات کلیدی"
-                  options={[]}
+                  options={keywordOptions}
                   value={formData.keywords}
                   onChange={(value) => handleSelectChange('keywords', value)}
                   multiple
@@ -258,7 +283,7 @@ export default function CreateDashboard() {
 
                 <Select
                   label="هشتگ‌ها"
-                  options={[]}
+                  options={hashtagOptions}
                   value={formData.hashtags}
                   onChange={(value) => handleSelectChange('hashtags', value)}
                   multiple
