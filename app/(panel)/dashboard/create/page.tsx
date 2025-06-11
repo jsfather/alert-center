@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CreateDashboard() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedSocials, setSelectedSocials] = useState<number[]>([]);
+  const [selectedSocials, setSelectedSocials] = useState<number[]>([1]);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -199,7 +199,10 @@ export default function CreateDashboard() {
                             ? 'border-neutral-700'
                             : 'border-primary-400'
                         )}
-                        onClick={() =>
+                        onClick={() => {
+                          if (selectedSocials.length === 1 && selectedSocials.includes(item.id)) {
+                            return;
+                          }
                           setSelectedSocials((prev) =>
                             prev.includes(item.id)
                               ? prev.filter(
@@ -207,7 +210,7 @@ export default function CreateDashboard() {
                                 )
                               : [...prev, item.id]
                           )
-                        }
+                        }}
                       >
                         <Icon size={46} className="fill-primary-400" />
                         <div className="text-lg font-bold text-white">
