@@ -15,11 +15,12 @@ import {
   InstagramLogoIcon,
   TwitterLogoIcon,
   YoutubeLogoIcon,
+  CheckIcon
 } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CreateDashboard() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [selectedSocials, setSelectedSocials] = useState<number[]>([1]);
   const [formData, setFormData] = useState({
     title: '',
@@ -36,7 +37,10 @@ export default function CreateDashboard() {
       title: 'عنوان داشبورد',
     },
     {
-      title: 'پیکربندی و تایید',
+      title: 'پیکربندی',
+    },
+    {
+      title: 'تایید نهایی',
     },
   ];
 
@@ -135,10 +139,8 @@ export default function CreateDashboard() {
   return (
     <div className="min-h-full p-8">
       <Breadcrumb items={breadcrumbItems} />
-      <div className="mx-auto w-full flex flex-col items-center mt-8 max-w-7xl">
-        <h1 className="text-4xl font-bold text-white">
-          ایجاد داشبورد جدید
-        </h1>
+      <div className="mx-auto mt-8 flex w-full max-w-7xl flex-col items-center">
+        <h1 className="text-4xl font-bold text-white">ایجاد داشبورد جدید</h1>
         <div className="my-4 h-[2px] w-1/12 bg-gray-300"></div>
 
         <Stepper steps={steps} currentStep={currentStep} className="mt-8" />
@@ -222,7 +224,10 @@ export default function CreateDashboard() {
                             : 'border-primary-400'
                         )}
                         onClick={() => {
-                          if (selectedSocials.length === 1 && selectedSocials.includes(item.id)) {
+                          if (
+                            selectedSocials.length === 1 &&
+                            selectedSocials.includes(item.id)
+                          ) {
                             return;
                           }
                           setSelectedSocials((prev) =>
@@ -231,7 +236,7 @@ export default function CreateDashboard() {
                                   (socialItem) => socialItem !== item.id
                                 )
                               : [...prev, item.id]
-                          )
+                          );
                         }}
                       >
                         <Icon size={46} className="fill-primary-400" />
@@ -304,16 +309,43 @@ export default function CreateDashboard() {
                     انصراف
                   </Button>
                   <Button
+                    onClick={handleNext}
                     icon={<FileText className="h-4 w-4" />}
                     iconPosition="start"
-                    disabled={
-                      !formData.updateInterval ||
-                      !formData.startDate ||
-                      !formData.endDate
-                    }
                   >
                     ایجاد گزارش
                   </Button>
+                </div>
+              </motion.div>
+            )}
+
+            {currentStep === 2 && (
+              <motion.div
+                key="step3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="mx-auto w-full max-w-4xl space-y-6"
+              >
+
+                <div className="flex flex-col items-center">
+                  <div className="rounded-full bg-primary-500 w-16 h-16 flex justify-center items-center">
+                    <CheckIcon size={40} color="#FFFFFF" />
+                  </div>
+
+                  <div className="font-bold text-[25px] text-white mt-8">داشبورد گزارشات با موفقیت ایجاد شد</div>
+
+                  <div className="text-xl font-medium text-stone-300 mt-6">داشبورد شما در پلتفرم‌های “تلگرام، اینستاگرام” با عنوان “تحلیل رفتار‌های ضدخانواده” ایجاد شد.</div>
+
+                  <div className="flex flex-row mt-10 gap-4">
+                    <Button variant="secondary">
+                      ایجاد داشبورد جدید
+                    </Button>
+                    <Button variant="primary">
+                      ایجاد گزارش‌های داشبورد
+                    </Button>
+                  </div>
                 </div>
               </motion.div>
             )}
