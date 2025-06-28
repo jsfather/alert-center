@@ -1,30 +1,30 @@
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import { ProhibitIcon } from '@phosphor-icons/react';
 
 interface ConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  variant?: 'danger' | 'success';
+  variant?: 'danger' | 'primary' | 'warning';
   title: string;
   message: string;
   confirmText: string;
   cancelText: string;
-  titleIcon: LucideIcon;
-  confirmIcon: LucideIcon;
+  titleIcon: React.ReactNode;
+  confirmIcon: React.ReactNode;
 }
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
-  variant = 'danger',
+  variant = 'primary',
   title,
   message,
   confirmText,
   cancelText,
-  titleIcon: TitleIcon,
-  confirmIcon: ConfirmIcon,
+  titleIcon,
+  confirmIcon,
 }) => {
   if (!isOpen) return null;
 
@@ -34,10 +34,15 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
       confirmBtn: 'bg-red-400 text-white',
       border: 'border-red-400',
     },
-    success: {
-      iconColor: 'text-green-400',
-      confirmBtn: 'bg-green-500 text-white',
-      border: 'border-green-400',
+    primary: {
+      iconColor: 'text-primary-500',
+      confirmBtn: 'bg-primary-500 text-white',
+      border: 'border-primary-500',
+    },
+    warning: {
+      iconColor: 'text-yellow-400',
+      confirmBtn: 'bg-yellow-400 text-white',
+      border: 'border-yellow-400',
     },
   };
 
@@ -51,11 +56,13 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
       />
 
       <div
-        className={`relative mx-auto w-full max-w-md rounded-lg border-2 bg-neutral-900 p-6 ${config.border} shadow-2xl`}
+        className={`relative mx-auto w-full max-w-[536px] rounded-lg border-2 bg-neutral-900 p-6 ${config.border} shadow-2xl`}
       >
         <div className="mb-4 flex justify-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full">
-            <TitleIcon className={`h-8 w-8 ${config.iconColor}`} />
+          <div
+            className={`flex h-16 w-16 items-center justify-center rounded-full ${config.iconColor}`}
+          >
+            {titleIcon}
           </div>
         </div>
 
@@ -64,18 +71,19 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
           <p className="text-sm leading-relaxed text-gray-300">{message}</p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex gap-10 px-10">
           <button
             onClick={onConfirm}
-            className={`flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-3 font-medium transition-colors ${config.confirmBtn}`}
+            className={`flex flex-2 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-3 font-medium transition-colors ${config.confirmBtn}`}
           >
-            <ConfirmIcon className="h-4 w-4" />
+            {confirmIcon}
             {confirmText}
           </button>
           <button
             onClick={onClose}
-            className="flex-1 cursor-pointer rounded-xl border border-gray-600 bg-transparent px-4 py-3 font-medium text-gray-300 transition-colors hover:bg-gray-800"
+            className={`flex flex-2 cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-600 px-4 py-3 font-medium text-white transition-colors`}
           >
+            <ProhibitIcon weight="bold" size={20} />
             {cancelText}
           </button>
         </div>
