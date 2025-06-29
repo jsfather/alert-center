@@ -1,9 +1,8 @@
-'use client'
+'use client';
 
 import { ConfirmModal } from '@/app/components/ui/ConfirmModal';
 import { useState } from 'react';
-import { TrashIcon } from 'lucide-react'
-
+import { TrashSimpleIcon } from '@phosphor-icons/react';
 
 export default function Page() {
   const [dangerModal, setDangerModal] = useState(false);
@@ -22,9 +21,9 @@ export default function Page() {
           alert('Confirmed danger action!');
           setDangerModal(false);
         }}
-        titleIcon={TrashIcon}
-        confirmIcon={TrashIcon}
-        variant="danger"
+        titleIcon={<TrashSimpleIcon size={32} weight="bold" />}
+        confirmIcon={<TrashSimpleIcon className="h-4 w-4" weight="bold" />}
+        variant="warning"
         title="آیا از حذف داشبورد اطمینان دارید؟"
         message="با حذف داشبورد امکان بازیابی و دسترسی مجدد به آن وجود نخواهد داشت."
         confirmText="حذف داشبورد"
