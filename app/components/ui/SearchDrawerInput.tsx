@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Check, Edit3, HelpCircle, Sliders, X, CheckLine } from 'lucide-react';
+import { Edit3, HelpCircle, Sliders, X, CheckLine } from 'lucide-react';
 import TextInput from '@/app/components/ui/TextInput';
 import TagInput from '@/app/components/ui/TagInput';
 import Button from '@/app/components/ui/Button';
