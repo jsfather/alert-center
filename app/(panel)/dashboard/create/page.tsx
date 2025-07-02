@@ -12,11 +12,9 @@ import { FileText } from 'lucide-react';
 import { CheckIcon } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SearchDrawerInput from '@/app/components/ui/SearchDrawerInput';
-import TagInput from '@/app/components/ui/TagInput';
 
 export default function CreateDashboard() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [tags, setTags] = useState([]);
 
   const [formData, setFormData] = useState({
     title: '',
