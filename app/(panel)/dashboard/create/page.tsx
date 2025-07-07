@@ -3,24 +3,19 @@
 import Stepper from '@/app/components/ui/Stepper';
 import { useState } from 'react';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
-import TextField from '@/app/components/ui/TextField';
+import TextInput from '@/app/components/ui/TextInput';
 import TextArea from '@/app/components/ui/TextArea';
 import Button from '@/app/components/ui/Button';
 import Select from '@/app/components/ui/Select';
 import DateTimePicker from '@/app/components/ui/DateTimePicker';
-import { cn } from '@/app/lib/utils';
 import { FileText } from 'lucide-react';
-import {
-  TelegramLogoIcon,
-  InstagramLogoIcon,
-  TwitterLogoIcon,
-  YoutubeLogoIcon,
-} from '@phosphor-icons/react';
+import { CheckIcon } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SearchDrawerInput from '@/app/components/ui/SearchDrawerInput';
 
 export default function CreateDashboard() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedSocials, setSelectedSocials] = useState<number[]>([1]);
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -36,7 +31,10 @@ export default function CreateDashboard() {
       title: 'عنوان داشبورد',
     },
     {
-      title: 'پیکربندی و تایید',
+      title: 'پیکربندی',
+    },
+    {
+      title: 'تایید نهایی',
     },
   ];
 
@@ -98,47 +96,11 @@ export default function CreateDashboard() {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  type SocialItem = {
-    id: number;
-    title: string;
-    description: string;
-    icon: React.ComponentType<{ size: number; className: string }>;
-  };
-
-  const socialItems: SocialItem[] = [
-    {
-      id: 1,
-      title: 'تلگرام',
-      description: 'تحلیل داده‌هـای\n' + 'پیام رسان تلگرام',
-      icon: TelegramLogoIcon,
-    },
-    {
-      id: 2,
-      title: 'اینستاگرام',
-      description: 'تحلیل داده‌های \n' + '  اینستاگرام',
-      icon: InstagramLogoIcon,
-    },
-    {
-      id: 3,
-      title: 'توییتر',
-      description: 'تحلیل داده‌های توییتر  (X)',
-      icon: TwitterLogoIcon,
-    },
-    {
-      id: 4,
-      title: 'یوتوب',
-      description: 'تحلیل داده‌های یوتوب',
-      icon: YoutubeLogoIcon,
-    },
-  ];
-
   return (
     <div className="min-h-full p-8">
       <Breadcrumb items={breadcrumbItems} />
-      <div className="mx-auto w-full flex flex-col items-center mt-8 max-w-7xl">
-        <h1 className="text-4xl font-bold text-white">
-          ایجاد داشبورد جدید
-        </h1>
+      <div className="mx-auto mt-8 flex w-full max-w-7xl flex-col items-center">
+        <h1 className="text-4xl font-bold text-white">ایجاد داشبورد جدید</h1>
         <div className="my-4 h-[2px] w-1/12 bg-gray-300"></div>
 
         <Stepper steps={steps} currentStep={currentStep} className="mt-8" />
@@ -157,7 +119,7 @@ export default function CreateDashboard() {
                 <div className="text-lg font-medium text-white">
                   اطلاعات پایه
                 </div>
-                <TextField
+                <TextInput
                   label="عنوان داشبورد"
                   name="title"
                   value={formData.title}
@@ -206,50 +168,10 @@ export default function CreateDashboard() {
                 transition={{ duration: 0.3 }}
                 className="mx-auto w-full max-w-4xl space-y-6"
               >
-                <div className="text-lg font-medium text-stone-400">
-                  بستر‌های مورد نظر خود را انتخاب کنید
-                </div>
-                <div className="flex w-full flex-wrap justify-center gap-5">
-                  {socialItems.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={item.id}
-                        className={cn(
-                          'flex h-[175px] w-[175px] shrink-0 cursor-pointer flex-col items-center justify-between rounded-lg border-2 bg-neutral-900 p-6 text-center shadow-lg transition-colors select-none sm:w-[calc(50%-0.625rem)] md:w-[175px]',
-                          selectedSocials.indexOf(item.id) === -1
-                            ? 'border-neutral-700'
-                            : 'border-primary-400'
-                        )}
-                        onClick={() => {
-                          if (selectedSocials.length === 1 && selectedSocials.includes(item.id)) {
-                            return;
-                          }
-                          setSelectedSocials((prev) =>
-                            prev.includes(item.id)
-                              ? prev.filter(
-                                  (socialItem) => socialItem !== item.id
-                                )
-                              : [...prev, item.id]
-                          )
-                        }}
-                      >
-                        <Icon size={46} className="fill-primary-400" />
-                        <div className="text-lg font-bold text-white">
-                          {item.title}
-                        </div>
-                        <div className="text-sm font-bold text-neutral-500">
-                          {item.description}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="h-[1px] bg-neutral-700"></div>
-
-                <div className="text-lg font-medium text-stone-400">
-                  پیکربندی گزارش
-                </div>
+                <SearchDrawerInput
+                  label="عبارت جستجو"
+                  placeholder="عبارت جستجو خود را وارد کنید"
+                />
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                   <DateTimePicker
@@ -304,16 +226,43 @@ export default function CreateDashboard() {
                     انصراف
                   </Button>
                   <Button
+                    onClick={handleNext}
                     icon={<FileText className="h-4 w-4" />}
                     iconPosition="start"
-                    disabled={
-                      !formData.updateInterval ||
-                      !formData.startDate ||
-                      !formData.endDate
-                    }
                   >
                     ایجاد گزارش
                   </Button>
+                </div>
+              </motion.div>
+            )}
+
+            {currentStep === 2 && (
+              <motion.div
+                key="step3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="mx-auto w-full max-w-4xl space-y-6"
+              >
+                <div className="flex flex-col items-center">
+                  <div className="bg-primary-500 flex h-16 w-16 items-center justify-center rounded-full">
+                    <CheckIcon size={40} color="#FFFFFF" />
+                  </div>
+
+                  <div className="mt-8 text-[25px] font-bold text-white">
+                    داشبورد گزارشات با موفقیت ایجاد شد
+                  </div>
+
+                  <div className="mt-6 text-xl font-medium text-stone-300">
+                    داشبورد شما در پلتفرم‌های “تلگرام، اینستاگرام” با عنوان
+                    “تحلیل رفتار‌های ضدخانواده” ایجاد شد.
+                  </div>
+
+                  <div className="mt-10 flex flex-row gap-4">
+                    <Button variant="secondary">ایجاد داشبورد جدید</Button>
+                    <Button variant="primary">ایجاد گزارش‌های داشبورد</Button>
+                  </div>
                 </div>
               </motion.div>
             )}
